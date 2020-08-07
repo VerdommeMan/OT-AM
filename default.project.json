@@ -1,92 +1,19 @@
 {
-  "name": "ROJO",
+  "name": "Module Player Region3 Event",
   "tree": {
-    "$className": "DataModel",
+      "$path": "src",
 
-    "ReplicatedStorage": {
-      "$className": "ReplicatedStorage",
-
-      "Common": {
-        "$path": "src/shared"
-      }
-    },
-
-    "ServerScriptService": {
-      "$className": "ServerScriptService",
-
-      "Server": {
-        "$path": "src/server"
-      },
-      "ModulePlayerDetector": {
-        "$path": "src/mpd"
-      }
-    },
-
-    "StarterPlayer": {
-      "$className": "StarterPlayer",
-
-      "StarterPlayerScripts": {
-        "$className": "StarterPlayerScripts",
-
-        "Client": {
-          "$path": "src/client"
-        }
-      }
-    },
-
-    "Workspace": {
-      "$className": "Workspace",
-      "$properties": {
-        "FilteringEnabled": true
-      },
-      "Baseplate": {
-        "$className": "Part",
+      "HttpService": {
+        "$className": "HttpService",
         "$properties": {
-          "Anchored": true,
-          "Color": [
-            0.38823,
-            0.37254,
-            0.38823
-          ],
-          "Locked": true,
-          "Position": [
-            0,
-            -10,
-            0
-          ],
-          "Size": [
-            512,
-            20,
-            512
-          ]
+          "HttpEnabled": true
+        }
+      },
+      "ServerScriptService":{
+        "$className": "ServerScriptService",
+        "MPRE":{
+          "$path": "src/module"
         }
       }
-    },
-    "Lighting": {
-      "$className": "Lighting",
-      "$properties": {
-        "Ambient": [
-          0,
-          0,
-          0
-        ],
-        "Brightness": 2,
-        "GlobalShadows": true,
-        "Outlines": false,
-        "Technology": "Voxel"
-      }
-    },
-    "SoundService": {
-      "$className": "SoundService",
-      "$properties": {
-        "RespectFilteringEnabled": true
-      }
-    },
-    "HttpService": {
-      "$className": "HttpService",
-      "$properties": {
-        "HttpEnabled": true
-      }
-    }
   }
 }
