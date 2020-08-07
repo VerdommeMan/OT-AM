@@ -16,6 +16,9 @@
 
       "Server": {
         "$path": "src/server"
+      },
+      "ModulePlayerDetector": {
+        "$path": "src/mpd"
       }
     },
 
