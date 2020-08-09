@@ -12,7 +12,13 @@
       "ServerScriptService":{
         "$className": "ServerScriptService",
         "MPRE":{
-          "$path": "src/module"
+          "$path": "src/module",
+          "Area":{
+            "$path": "src/module/Area"
+          }
+        },
+        "TestFunctions":{
+          "$path": "src/TestFunctions"
         }
       }
   }

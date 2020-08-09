@@ -1,1 +1,3 @@
-print("test")
+local module = {}
+
+return module
