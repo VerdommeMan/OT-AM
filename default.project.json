@@ -19,6 +19,9 @@
         },
         "TestFunctions":{
           "$path": "src/TestFunctions"
+        },
+        "Test":{
+          "$path": "src/test.server.lua"
         }
       }
   }

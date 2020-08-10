@@ -1,8 +1,8 @@
 -- basically my own datatype
 local Area = {} 
 Area.__index = Area
-
-local constructors = { 
+local constructors
+constructors = { 
    default = function(minVector3, maxVector3)
         local self = setmetatable({}, Area)
         self.MinV = minVector3
@@ -11,7 +11,6 @@ local constructors = {
     end,
     CF_Size = function (CFrame, Size )
         local abs = math.abs 
-
         local sx, sy, sz = Size.X, Size.Y, Size.Z -- this causes 3 Lua->C++ invocations
     
         local x, y, z, R00, R01, R02, R10, R11, R12, R20, R21, R22 = CFrame:components() -- this causes 1 Lua->C++ invocations and gets all components of cframe in one go, with no allocations
@@ -44,11 +43,11 @@ function Area.new(...)
     local args = {...}
 
     if n == 1 and typeof(args[1]) == "Instance" then
-        constructors.part(...)
+        return constructors.part(...)
     elseif  n == 2 and typeof(args[1]) == "CFrame" and typeof(args[2]) == "Vector3" then
-        constructors.CF_Size(...)
+        return  constructors.CF_Size(...)
     elseif  n == 2 and typeof(args[1]) == "Vector3" and typeof(args[2]) == "Vector3" then
-        constructors.default(...)
+        return constructors.default(...)
     else
         warn(typeof(args[1]))
         error("Incorrect given parameters")
