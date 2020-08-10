@@ -1,8 +1,10 @@
 -- basically my own datatype
-local Area = {} 
+local Area = {}
 Area.__index = Area
+
+
 local constructors
-constructors = { 
+constructors = {
    default = function(minVector3, maxVector3)
         local self = setmetatable({}, Area)
         self.MinV = minVector3
@@ -10,25 +12,25 @@ constructors = {
         return self
     end,
     CF_Size = function (CFrame, Size )
-        local abs = math.abs 
+        local abs = math.abs
         local sx, sy, sz = Size.X, Size.Y, Size.Z -- this causes 3 Lua->C++ invocations
-    
+
         local x, y, z, R00, R01, R02, R10, R11, R12, R20, R21, R22 = CFrame:components() -- this causes 1 Lua->C++ invocations and gets all components of cframe in one go, with no allocations
-    
+
         -- https://zeuxcg.org/2010/10/17/aabb-from-obb-with-component-wise-abs/
         local wsx = 0.5 * (abs(R00) * sx + abs(R01) * sy + abs(R02) * sz) -- this requires 3 Lua->C++ invocations to call abs, but no hash lookups since we cached abs value above; otherwise this is just a bunch of local ops
         local wsy = 0.5 * (abs(R10) * sx + abs(R11) * sy + abs(R12) * sz) -- same
         local wsz = 0.5 * (abs(R20) * sx + abs(R21) * sy + abs(R22) * sz) -- same
-        
+
         -- just a bunch of local ops
         local minx = x - wsx
         local miny = y - wsy
         local minz = z - wsz
-    
+
         local maxx = x + wsx
         local maxy = y + wsy
         local maxz = z + wsz
-       
+
         local minv, maxv = Vector3.new(minx, miny, minz), Vector3.new(maxx, maxy, maxz)
         -- credit for conversion https://devforum.roblox.com/t/part-to-region3-help/251348/5
         return constructors.default(minv , maxv)
@@ -38,7 +40,7 @@ constructors = {
     end
 }
 
-function Area.new(...) 
+function Area.new(...)
     local n = select("#", ...)
     local args = {...}
 
@@ -52,6 +54,10 @@ function Area.new(...)
         warn(typeof(args[1]))
         error("Incorrect given parameters")
     end
+end
+
+function Area:isInArea(Position) -- expects a vector3 instance
+    return self.MinV.X <= Position.X and Position.X <= self.MaxV.X and self.MinV.Y <= Position.Y and Position.Y <= self.MaxV.Y and self.MinV.Z <= Position.Z and Position.Z  <= self.MaxV.Z
 end
 
 return Area

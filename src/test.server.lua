@@ -1,5 +1,5 @@
--- local ServerScriptService = game:GetService("ServerScriptService")
--- local Area = require(ServerScriptService.MPRE.Area)
+local ServerScriptService = game:GetService("ServerScriptService")
+local Area = require(ServerScriptService.MPRE.Area)
 
 -- local function printContent(tabled)
 --     for _,child in pairs(tabled) do
@@ -20,3 +20,18 @@
 -- if not success then
 --   print("Error: "..ErrorStatement)
 -- end
+
+-- local newArea = Area.new(CFrame.new(0.50500083, 4.67000389, 27.7349968, 1, 0, 0, 0, 1, 0, 0, 0, 1),Vector3.new(13.87, 9.34, 13.23))
+local newArea = Area.new(workspace:WaitForChild("Part"))
+local Players = game:GetService("Players")
+
+Players.PlayerAdded:Connect(function(player)
+   player.CharacterAdded:Connect(function(character)
+    wait(4)    
+    while true do 
+        print(newArea:isInArea(character.HumanoidRootPart.Position))
+        wait()
+        end 
+    end)
+
+end)
