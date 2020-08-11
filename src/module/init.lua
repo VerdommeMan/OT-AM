@@ -43,9 +43,9 @@ function module.addArea(uniqueName, ...)
     else
         local self = setmetatable({}, Areas)
         self.Area = Area.new(...)
-        self.OnEnter = Instance.new("BindableEvent")
-        self.OnLeave = Instance.new("BindableEvent")
-        self.Chars = {}
+        self.onEnter = Instance.new("BindableEvent")
+        self.onLeave = Instance.new("BindableEvent")
+        self.chars = {}
         Areas[uniqueName] = self
         return self
     end
@@ -69,13 +69,13 @@ end
 local function coreLoop()
     for _, char in ipairs({table.unpack(getTableChars()), table.unpack(module.Settings.ExtraHumanoids)}) do
         for key, area in pairs(Areas) do
-            if not metamethods[key] and not area.Chars[char] and area.Area:isInArea(char.PrimaryPart.Position)  then --ignore metamethods
-                area.OnEnter:Fire(char)
-                area.Chars[char] = true
+            if not metamethods[key] and not area.chars[char] and area.Area:isInArea(char.PrimaryPart.Position)  then --ignore metamethods
+                area.onEnter:Fire(char)
+                area.chars[char] = true
                 break -- cant be in two areas at the same time
-            elseif not metamethods[key] and area.Chars[char] and not area.Area:isInArea(char.PrimaryPart.Position)  then
-                area.OnLeave:Fire(char)
-                area.Chars[char] = nil
+            elseif not metamethods[key] and area.chars[char] and not area.Area:isInArea(char.PrimaryPart.Position)  then
+                area.onLeave:Fire(char)
+                area.chars[char] = nil
                 break -- cant be in two areas at the same time
             end
         end
