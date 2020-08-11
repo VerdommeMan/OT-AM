@@ -40,7 +40,7 @@ constructors = {
     end
 }
 
-function Area.new(...)
+function Area.new(...) -- constructors for Area
     local n = select("#", ...)
     local args = {...}
 
@@ -51,12 +51,11 @@ function Area.new(...)
     elseif  n == 2 and typeof(args[1]) == "Vector3" and typeof(args[2]) == "Vector3" then
         return constructors.default(...)
     else
-        warn(typeof(args[1]))
         error("Incorrect given parameters")
     end
 end
 
-function Area:isInArea(Position) -- expects a vector3 instance
+function Area:isInArea(Position) -- expects a vector3 instance, returns true if the position is inside the area
     return self.MinV.X <= Position.X and Position.X <= self.MaxV.X and self.MinV.Y <= Position.Y and Position.Y <= self.MaxV.Y and self.MinV.Z <= Position.Z and Position.Z  <= self.MaxV.Z
 end
 

@@ -1,7 +1,7 @@
 {
   "name": "Module Player Region3 Event",
   "tree": {
-      "$path": "src",
+      "$className": "DataModel",
 
       "HttpService": {
         "$className": "HttpService",
@@ -14,11 +14,8 @@
         "MPRE":{
           "$path": "src/module",
           "Area":{
-            "$path": "src/module/Area"
+            "$path": "src/module/Area.lua"
           }
-        },
-        "TestFunctions":{
-          "$path": "src/TestFunctions"
         },
         "Test":{
           "$path": "src/test.server.lua"
