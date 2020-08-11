@@ -30,13 +30,14 @@ local metamethods = {
 
 --settings
 module.Settings = {}
-module.Settings.Heartbeat = 0.5 -- checks x amount every second, min 1, max 60
+module.Settings.Heartbeat = 5 --max 60
 module.Settings.ExtraHumanoids = {} -- add models here that also need to be tracked next to the player, the model needs a PrimaryPart (this part will be tracked)
 
+-- other stuff
 local Areas = {} -- a list of areas
 Areas.__index = Areas
 
-function module.AddArea(uniqueName, ...) -- name cant contain __
+function module.addArea(uniqueName, ...) 
     if Areas[uniqueName] then
         error("That name already exists")
     else
@@ -49,6 +50,11 @@ function module.AddArea(uniqueName, ...) -- name cant contain __
         return self
     end
 end
+
+
+-- function module.removeArea(uniqueName)
+--     
+-- end
 
 local function getTableChars()
     local chars = {}
@@ -63,9 +69,13 @@ end
 local function coreLoop()
     for _, char in ipairs({table.unpack(getTableChars()), table.unpack(module.Settings.ExtraHumanoids)}) do
         for key, area in pairs(Areas) do
-            if not metamethods[key] and area.Area:isInArea(char.PrimaryPart.Position)  and not area.Chars[char] then --ignore metamethods
+            if not metamethods[key] and not area.Chars[char] and area.Area:isInArea(char.PrimaryPart.Position)  then --ignore metamethods
                 area.OnEnter:Fire(char)
                 area.Chars[char] = true
+                break -- cant be in two areas at the same time
+            elseif not metamethods[key] and area.Chars[char] and not area.Area:isInArea(char.PrimaryPart.Position)  then
+                area.OnLeave:Fire(char)
+                area.Chars[char] = nil
                 break -- cant be in two areas at the same time
             end
         end

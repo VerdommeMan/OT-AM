@@ -38,8 +38,40 @@ local ServerScriptService = game:GetService("ServerScriptService")
 
 local module = require(ServerScriptService.MPRE)
 
-local test = module.AddArea("test", workspace:WaitForChild("Part"))
+local test = module.addArea("test", workspace:WaitForChild("Part"))
 
-test.OnEnter.Event:Connect(function() 
-    print("HEELL YEAH")
+test.OnEnter.Event:Connect(function()
+    print("enter 1")
+end)
+
+test.OnLeave.Event:Connect(function() 
+    print("leave 1")
+end)
+
+-- local success, errorStatement = pcall(function()
+--     module.AddArea("test", workspace:WaitForChild("Part"))
+-- end)
+
+-- if not success then
+--     print(errorStatement)
+-- end
+
+local test2 = module.addArea("test2", workspace:WaitForChild("Part2"))
+
+test2.OnEnter.Event:Connect(function() 
+    print("enter 2")
+end)
+
+test2.OnLeave.Event:Connect(function() 
+    print("Goodbye event 2")
+end)
+
+local test3 = module.addArea("test3", workspace:WaitForChild("Part3"))
+
+test3.OnEnter.Event:Connect(function() 
+    print("enter 3")
+end)
+
+test3.OnLeave.Event:Connect(function() 
+    print("Goodbye event 3")
 end)
