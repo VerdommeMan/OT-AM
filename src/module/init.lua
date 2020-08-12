@@ -85,19 +85,51 @@ function module.removeChar(char)
     else
         error("The char doesnt exist in the table") 
     end
+end
+
+
+local playerCharEvents = {} -- keeps a table of RBXScriptConnections
+local playerChars = {}
+
+local function addPlayerCharEvents() 
+    local p = Players.PlayerAdded:Connect(function(player)
+        local ca , cr
+        ca = player.CharacterAdded:Connect(function(character)
+            table.insert(playerChars, character)
+        end)
+        cr = player.CharacterRemoving:Connect(function(character)
+            table.remove(playerChars, table.find(playerChars, character))
+        end)
+        table.insert(playerCharEvents, ca)
+        table.insert(playerCharEvents, cr)
+    end)
+    table.insert(playerCharEvents, p)
+end
+
+local function removePlayerCharEvents()
+    for _, event in ipairs(playerCharEvents) do 
+        event:Disconnect()
+    end
+    playerCharEvents = {}
+    playerChars = {}
+end
+
+addPlayerCharEvents()
+
+function module.setAutoAddCharacter(bool) -- set this to false if you want to manually add the characters, you can turn it back on by setting it true again
+    if bool == not module.Settings.AutoAddPlayersCharacter then
+        if bool then
+            addPlayerCharEvents()
+        else
+            removePlayerCharEvents()
+        end
+        module.Settings.AutoAddPlayersCharacter = bool
+    else
+        warn("The setting is already in this state")
+    end
     
 end
 
-local playerChars = {}
-
-Players.PlayerAdded:Connect(function(player)
-    player.CharacterAdded:Connect(function(character)
-        table.insert(playerChars, character)
-    end)
-    player.CharacterRemoving:Connect(function(character)
-        table.remove(playerChars, table.find(playerChars, character))
-    end)
-end)
 
 local function coreLoop()
     for _, char in ipairs({table.unpack(playerChars), table.unpack(module.Settings.ExtraHumanoids)}) do
