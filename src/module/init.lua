@@ -32,6 +32,8 @@ local metamethods = {
 module.Settings = {}
 module.Settings.Heartbeat = 5 --max 60
 module.Settings.ExtraHumanoids = {} -- add models here that also need to be tracked next to the player, the model needs a PrimaryPart (this part will be tracked)
+module.Settings.FolderName = "MPRE: Areas" -- name used for the folder where the parts will be stored in for making Areas visible
+module.Settings.Part = {Transparency = 0.7, Color = Color3.fromRGB(255,85,255), CastShadow = false, CanCollide = false, Anchored = true} --contains the props of the part that will generated for that Area
 
 --settings, cant be changed directly
 module.Settings.AutoAddPlayersCharacter = true -- if this is set to false then the person must manually add the player characters he wants to track
@@ -129,19 +131,47 @@ function module.setAutoAddCharacter(bool) -- set this to false if you want to ma
     
 end
 
-local function coreLoop()
-    for _, char in ipairs({table.unpack(playerChars), table.unpack(module.Settings.ExtraHumanoids)}) do
+function module.switchMakeAreasVisible() -- call it to make the areas visible, call it again to make the areas invisible
+    local folder  = workspace:FindFirstChild(module.Settings.FolderName)
+    if folder then
+        folder:Destroy()
+    else
+        local newFolder = Instance.new("Folder")
+        newFolder.Name = module.Settings.FolderName
+        newFolder.Parent = workspace
+
         for key, area in pairs(Areas) do
-            if not metamethods[key] and not area.chars[char] and area.Area:isInArea(char.PrimaryPart.Position)  then --ignore metamethods
-                area.onEnter:Fire(char)
-                area.chars[char] = true
-                break -- cant be in two areas at the same time
-            elseif not metamethods[key] and area.chars[char] and not area.Area:isInArea(char.PrimaryPart.Position)  then
-                area.onLeave:Fire(char)
-                area.chars[char] = nil
-                break -- cant be in two areas at the same time
+            if not metamethods[key] then
+                local Region = Region3.new(area.Area.MinV, area.Area.MaxV)
+                local part = Instance.new("Part")
+                for prop, value in pairs(module.Settings.Part) do
+                    part[prop] = value
+                end
+                part.Name = key
+                part.CFrame = Region.CFrame
+                part.Size = Region.Size
+                part.Parent = newFolder
             end
         end
+    end
+    
+end
+
+local function coreLoop()
+    for _, char in ipairs({table.unpack(playerChars), table.unpack(module.Settings.ExtraHumanoids)}) do
+        coroutine.wrap(function()
+            for key, area in pairs(Areas) do
+                if not metamethods[key] and not area.chars[char] and area.Area:isInArea(char.PrimaryPart.Position)  then --ignore metamethods
+                    area.onEnter:Fire(char)
+                    area.chars[char] = true
+                    --break
+                elseif not metamethods[key] and area.chars[char] and not area.Area:isInArea(char.PrimaryPart.Position)  then
+                    area.onLeave:Fire(char)
+                    area.chars[char] = nil
+                    --break
+                end
+            end
+        end)()
     end
 end
 

@@ -56,7 +56,7 @@ function Area.new(...) -- constructors for Area
 end
 
 function Area:isInArea(Position) -- expects a vector3 instance, returns true if the position is inside the area
-    return self.MinV.X <= Position.X and Position.X <= self.MaxV.X and self.MinV.Y <= Position.Y and Position.Y <= self.MaxV.Y and self.MinV.Z <= Position.Z and Position.Z  <= self.MaxV.Z
+    return self.MinV.X <= Position.X and Position.X <= self.MaxV.X and self.MinV.Y <= Position.Y and Position.Y <= self.MaxV.Y and self.MinV.Z <= Position.Z and Position.Z <= self.MaxV.Z
 end
 
 return Area

@@ -75,3 +75,8 @@ end)
 test3.onLeave.Event:Connect(function() 
     print("Goodbye event 3")
 end)
+
+module.switchMakeAreasVisible()
+
+-- wait(10)
+-- module.switchMakeAreasVisible()
