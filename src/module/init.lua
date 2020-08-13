@@ -54,7 +54,6 @@ function module.addArea(uniqueName, ...)
     end
 end
 
-
 function module.removeArea(identifier)
     if Areas[identifier] then
         Areas[identifier] = nil
@@ -129,7 +128,6 @@ function module.setAutoAddCharacter(bool) -- set this to false if you want to ma
     end
     
 end
-
 
 local function coreLoop()
     for _, char in ipairs({table.unpack(playerChars), table.unpack(module.Settings.ExtraHumanoids)}) do

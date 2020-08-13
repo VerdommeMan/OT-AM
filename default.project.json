@@ -12,10 +12,7 @@
       "ServerScriptService":{
         "$className": "ServerScriptService",
         "MPRE":{
-          "$path": "src/module",
-          "Area":{
-            "$path": "src/module/Area.lua"
-          }
+          "$path": "src/module"
         },
         "Test":{
           "$path": "src/test.server.lua"
