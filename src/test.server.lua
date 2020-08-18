@@ -1,82 +1,54 @@
 local ServerScriptService = game:GetService("ServerScriptService")
---local Area = require(ServerScriptService.MPRE.Area)
-
--- local function printContent(tabled)
---     for _,child in pairs(tabled) do
---         print(child)
---     end
--- end
-
-
--- local Area1 = Area.new(Instance.new("Part"))
--- print(Area1)
--- printContent(Area1)
--- local Area2 = Area.new(Vector3.new(0,0,0),Vector3.new(5,5,5))
--- printContent(Area2)
--- local Area3 = Area.new(CFrame.new(5,2,3),Vector3.new(5,5,5))
--- printContent(Area3)
-
--- local success, ErrorStatement = pcall( Area.new )
--- if not success then
---   print("Error: "..ErrorStatement)
--- end
-
--- local newArea = Area.new(CFrame.new(0.50500083, 4.67000389, 27.7349968, 1, 0, 0, 0, 1, 0, 0, 0, 1),Vector3.new(13.87, 9.34, 13.23))
--- local newArea = Area.new(workspace:WaitForChild("Part"))
--- local Players = game:GetService("Players")
-
--- Players.PlayerAdded:Connect(function(player)
---    player.CharacterAdded:Connect(function(character)
---     wait(4)    
---     while true do 
---         print(newArea:isInArea(character.HumanoidRootPart.Position))
---         wait()
---         end 
---     end)
-
--- end)
-
+local ServerStorage = game:GetService("ServerStorage")
+local Lighting = game:GetService("Lighting")
+local skys = ServerStorage.Skys
 local module = require(ServerScriptService.MPRE)
 
-local test = module.addArea("test", workspace:WaitForChild("Part"))
+local test = module.addArea("test", workspace:WaitForChild("Part1"))
+
+local function emptyLightning()
+    for _, light in ipairs(Lighting:GetChildren()) do 
+        light:Destroy()
+    end
+end
 
 test.onEnter.Event:Connect(function()
     print("enter 1")
+    skys.V1:Clone().Parent = Lighting
 end)
 
 test.onLeave.Event:Connect(function() 
     print("leave 1")
+    emptyLightning()
 end)
-
--- local success, errorStatement = pcall(function()
---     module.AddArea("test", workspace:WaitForChild("Part"))
--- end)
-
--- if not success then
---     print(errorStatement)
--- end
 
 local test2 = module.addArea("test2", workspace:WaitForChild("Part2"))
 
 test2.onEnter.Event:Connect(function() 
     print("enter 2")
+    skys.V2:Clone().Parent = Lighting
 end)
 
 test2.onLeave.Event:Connect(function() 
-    print("Goodbye event 2")
+    print("leave 2")
+    emptyLightning()
 end)
 
 local test3 = module.addArea("test3", workspace:WaitForChild("Part3"))
 
 test3.onEnter.Event:Connect(function() 
     print("enter 3")
+    skys.V3:Clone().Parent = Lighting
 end)
 
 test3.onLeave.Event:Connect(function() 
-    print("Goodbye event 3")
+    print("leave 3")
+    emptyLightning()
 end)
 
-module.switchMakeAreasVisible()
 
--- wait(10)
--- module.switchMakeAreasVisible()
+while true do
+    wait(10)
+    print("## Making the Areas (in)visible ##")
+    module.switchMakeAreasVisible()
+end

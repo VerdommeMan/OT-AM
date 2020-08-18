@@ -35,9 +35,15 @@ constructors = {
         -- credit for conversion https://devforum.roblox.com/t/part-to-region3-help/251348/5
         return constructors.default(minv , maxv)
     end,
+    -- Pos_Size = function (Position, Size)  -- flawed calculation
+    --    return  constructors.default(Position-(Size/2), Position+(Size/2))
+    -- end,
     part = function(part)
         return constructors.CF_Size(part.CFrame, part.Size)
     end
+    -- part = function(part)
+    --     return constructors.Pos_Size(part.Position, part.Size)
+    -- end
 }
 
 function Area.new(...) -- constructors for Area

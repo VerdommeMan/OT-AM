@@ -5,48 +5,32 @@ local Players = game:GetService("Players")
 
 local module = {}
 
--- Lookup table for metamethods
-local metamethods = {
-    __index = true,
-    __newindex = true,
-    __call = true,
-    __concat = true,
-    __unm = true,
-    __add = true,
-    __sub = true,
-    __mul = true,
-    __div = true,
-    __mod = true,
-    __pow = true,
-    __tostring = true,
-    __metatable = true,
-    __eq = true,
-    __lt = true,
-    __le = true,
-    __mode = true,
-    __gc = true,
-    __len = true
-}
-
 --settings, can be changed directly instead of using the setters
 module.Settings = {}
-module.Settings.Heartbeat = 5 --max 60
+module.Settings.Heartbeat = 10 --max 60
 module.Settings.ExtraHumanoids = {} -- add models here that also need to be tracked next to the player, the model needs a PrimaryPart (this part will be tracked)
 module.Settings.FolderName = "MPRE: Areas" -- name used for the folder where the parts will be stored in for making Areas visible
-module.Settings.Part = {Transparency = 0.7, Color = Color3.fromRGB(255,85,255), CastShadow = false, CanCollide = false, Anchored = true} --contains the props of the part that will generated for that Area
+module.Settings.Part = {  --contains the props of the part that will generated for that Area when its made visible
+    Transparency = 0.7,
+    Color = Color3.fromRGB(255, 85, 255),
+    CastShadow = false,
+    CanCollide = false,
+    Anchored = true
+}
 
 --settings, cant be changed directly
 module.Settings.AutoAddPlayersCharacter = true -- if this is set to false then the person must manually add the player characters he wants to track
 
 -- other stuff
+local mtAreas = {} -- different mt table because i dont want to pollute Areas with metamethods
 local Areas = {} -- a list of areas
-Areas.__index = Areas
+mtAreas.__index = Areas
 
-function module.addArea(uniqueName, ...) 
+function module.addArea(uniqueName, ...)
     if Areas[uniqueName] then
         error("That name already exists")
     else
-        local self = setmetatable({}, Areas) -- mt allows ppl to access other areas from this table
+        local self = setmetatable({}, mtAreas) -- mt allows ppl to access other areas from this table
         self.Area = Area.new(...)
         self.onEnter = Instance.new("BindableEvent")
         self.onLeave = Instance.new("BindableEvent")
@@ -82,33 +66,41 @@ end
 
 function module.removeChar(char)
     if char and table.find(module.Settings.ExtraHumanoids, char) then
-        table.remove(module.Settings.ExtraHumanoids,table.find(module.Settings.ExtraHumanoids, char))       
+        table.remove(module.Settings.ExtraHumanoids, table.find(module.Settings.ExtraHumanoids, char))
     else
-        error("The char doesnt exist in the table") 
+        error("The char doesnt exist in the table")
     end
 end
-
 
 local playerCharEvents = {} -- keeps a table of RBXScriptConnections
 local playerChars = {}
 
-local function addPlayerCharEvents() 
-    local p = Players.PlayerAdded:Connect(function(player)
-        local ca , cr
-        ca = player.CharacterAdded:Connect(function(character)
-            table.insert(playerChars, character)
-        end)
-        cr = player.CharacterRemoving:Connect(function(character)
-            table.remove(playerChars, table.find(playerChars, character))
-        end)
-        table.insert(playerCharEvents, ca)
-        table.insert(playerCharEvents, cr)
-    end)
+local function addPlayerCharEvents()
+    local p =
+        Players.PlayerAdded:Connect(
+        function(player)
+            local ca, cr
+            ca =
+                player.CharacterAdded:Connect(
+                function(character)
+                    table.insert(playerChars, character)
+                end
+            )
+            cr =
+                player.CharacterRemoving:Connect(
+                function(character)
+                    table.remove(playerChars, table.find(playerChars, character))
+                end
+            )
+            table.insert(playerCharEvents, ca)
+            table.insert(playerCharEvents, cr)
+        end
+    )
     table.insert(playerCharEvents, p)
 end
 
 local function removePlayerCharEvents()
-    for _, event in ipairs(playerCharEvents) do 
+    for _, event in ipairs(playerCharEvents) do
         event:Disconnect()
     end
     playerCharEvents = {}
@@ -128,11 +120,10 @@ function module.setAutoAddCharacter(bool) -- set this to false if you want to ma
     else
         warn("The setting is already in this state")
     end
-    
 end
 
 function module.switchMakeAreasVisible() -- call it to make the areas visible, call it again to make the areas invisible
-    local folder  = workspace:FindFirstChild(module.Settings.FolderName)
+    local folder = workspace:FindFirstChild(module.Settings.FolderName)
     if folder then
         folder:Destroy()
     else
@@ -141,34 +132,33 @@ function module.switchMakeAreasVisible() -- call it to make the areas visible, c
         newFolder.Parent = workspace
 
         for key, area in pairs(Areas) do
-            if not metamethods[key] then
-                local Region = Region3.new(area.Area.MinV, area.Area.MaxV)
-                local part = Instance.new("Part")
-                for prop, value in pairs(module.Settings.Part) do
-                    part[prop] = value
-                end
-                part.Name = key
-                part.CFrame = Region.CFrame
-                part.Size = Region.Size
-                part.Parent = newFolder
+            local Region = Region3.new(area.Area.MinV, area.Area.MaxV)
+            local part = Instance.new("Part")
+
+            for prop, value in pairs(module.Settings.Part) do
+                part[prop] = value
             end
+            part.Name = key
+            part.CFrame = Region.CFrame
+            part.Size = Region.Size
+            part.Parent = newFolder
         end
     end
-    
 end
 
 local function coreLoop()
     for _, char in ipairs({table.unpack(playerChars), table.unpack(module.Settings.ExtraHumanoids)}) do
         coroutine.wrap(function()
-            for key, area in pairs(Areas) do
-                if not metamethods[key] and not area.chars[char] and area.Area:isInArea(char.PrimaryPart.Position)  then --ignore metamethods
+            for _, area in pairs(Areas) do
+                local contains, currentChar = area.Area:isInArea(char.PrimaryPart.Position), area.chars[char]
+                if not currentChar and contains then
                     area.onEnter:Fire(char)
                     area.chars[char] = true
-                    --break
-                elseif not metamethods[key] and area.chars[char] and not area.Area:isInArea(char.PrimaryPart.Position)  then
+                    break
+                elseif currentChar and not contains then
                     area.onLeave:Fire(char)
                     area.chars[char] = nil
-                    --break
+                    break
                 end
             end
         end)()
