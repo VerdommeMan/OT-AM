@@ -5,10 +5,9 @@ local Players = game:GetService("Players")
 
 local module = {}
 
---settings, can be changed directly instead of using the setters
+--settings, can be changed directly instead of using the setters (read/write)
 module.Settings = {}
 module.Settings.Heartbeat = 10 --max 60
-module.Settings.ExtraHumanoids = {} -- add models here that also need to be tracked next to the player, the model needs a PrimaryPart (this part will be tracked)
 module.Settings.FolderName = "MPRE: Areas" -- name used for the folder where the parts will be stored in for making Areas visible
 module.Settings.Part = {  --contains the props of the part that will generated for that Area when its made visible
     Transparency = 0.7,
@@ -18,8 +17,9 @@ module.Settings.Part = {  --contains the props of the part that will generated f
     Anchored = true
 }
 
---settings, cant be changed directly
+--settings, cant be changed directly (read)
 module.Settings.AutoAddPlayersCharacter = true -- if this is set to false then the person must manually add the player characters he wants to track
+module.Settings.TrackedCharacters = {} -- add models here that also need to be tracked next to the player, the model needs a PrimaryPart (this part will be tracked)
 
 -- other stuff
 local mtAreas = {} -- different mt table because i dont want to pollute Areas with metamethods
@@ -32,8 +32,10 @@ function module.addArea(uniqueName, ...)
     else
         local self = setmetatable({}, mtAreas) -- mt allows ppl to access other areas from this table
         self.Area = Area.new(...)
-        self.onEnter = Instance.new("BindableEvent")
-        self.onLeave = Instance.new("BindableEvent")
+        self.enter = Instance.new("BindableEvent")
+        self.leave = Instance.new("BindableEvent")
+        self.onEnter = self.enter.Event
+        self.onLeave = self.leave.Event
         self.chars = {}
         Areas[uniqueName] = self
         return self
@@ -56,47 +58,28 @@ local function isValidChar(char)
     return char and typeof(char) == "Instance" and char:IsA("Model") and char.PrimaryPart
 end
 
-function module.addChar(char) -- must be a model with a PrimaryPart set
-    if isValidChar(char) then
-        table.insert(module.Settings.ExtraHumanoids, char)
+function module.addCharacter(character, uniqueKey) --first param must be a model with a PrimaryPart set, second param is optional, it sets the key of the char (give here the player if you set it to manual) if second param is left empty then character will be used as key
+    if character and isValidChar(character) then
+        module.Settings.TrackedCharacters[uniqueKey or character] = character --ternary ftw
     else
-        error("Given paramter must be a model with a set PrimaryPart")
+        error("First parameter must be a model with a set PrimaryPart")
     end
 end
 
-function module.removeChar(char)
-    if char and table.find(module.Settings.ExtraHumanoids, char) then
-        table.remove(module.Settings.ExtraHumanoids, table.find(module.Settings.ExtraHumanoids, char))
-    else
-        error("The char doesnt exist in the table")
-    end
+function module.removeCharacter(key) -- give the key of the character that needs to be removed
+    module.Settings.TrackedCharacters[key] = nil
 end
 
 local playerCharEvents = {} -- keeps a table of RBXScriptConnections
-local playerChars = {}
+local players = {} -- table of keys so that these characters can be removed from the tracked list when autoCharacteradded turned off
 
 local function addPlayerCharEvents()
-    local p =
-        Players.PlayerAdded:Connect(
-        function(player)
-            local ca, cr
-            ca =
-                player.CharacterAdded:Connect(
-                function(character)
-                    table.insert(playerChars, character)
-                end
-            )
-            cr =
-                player.CharacterRemoving:Connect(
-                function(character)
-                    table.remove(playerChars, table.find(playerChars, character))
-                end
-            )
-            table.insert(playerCharEvents, ca)
-            table.insert(playerCharEvents, cr)
-        end
-    )
-    table.insert(playerCharEvents, p)
+    table.insert(playerCharEvents, Players.PlayerAdded:Connect(function(player)
+        table.insert(players, player)
+        table.insert(playerCharEvents, player.CharacterAdded:Connect(function(character)
+            module.addCharacter(character, player)
+        end))
+    end))
 end
 
 local function removePlayerCharEvents()
@@ -104,7 +87,11 @@ local function removePlayerCharEvents()
         event:Disconnect()
     end
     playerCharEvents = {}
-    playerChars = {}
+
+    for _, player in ipairs(players) do 
+        module.removeCharacter(player)
+    end
+    players = {}
 end
 
 addPlayerCharEvents()
@@ -147,17 +134,17 @@ function module.switchMakeAreasVisible() -- call it to make the areas visible, c
 end
 
 local function coreLoop()
-    for _, char in ipairs({table.unpack(playerChars), table.unpack(module.Settings.ExtraHumanoids)}) do
+    for player, character in pairs(module.Settings.TrackedCharacters) do
         coroutine.wrap(function()
             for _, area in pairs(Areas) do
-                local contains, currentChar = area.Area:isInArea(char.PrimaryPart.Position), area.chars[char]
+                local contains, currentChar = area.Area:isInArea(character.PrimaryPart.Position), area.chars[character]
                 if not currentChar and contains then
-                    area.onEnter:Fire(char)
-                    area.chars[char] = true
+                    area.enter:Fire(player, player == character) --returns true if its custom added character or false if its player (if true first param will be the character instead of player since a custom npc doesnt have a player object)
+                    area.chars[character] = true
                     break
                 elseif currentChar and not contains then
-                    area.onLeave:Fire(char)
-                    area.chars[char] = nil
+                    area.leave:Fire(player, player == character) --returns player and true if its custom added character or false if its player 
+                    area.chars[character] = nil
                     break
                 end
             end
@@ -166,14 +153,12 @@ local function coreLoop()
 end
 
 local sumDt = 0
-RunService.Heartbeat:Connect(
-    function(dt)
-        sumDt += dt
-        if sumDt > 1 / module.Settings.Heartbeat then
-            sumDt = 0
-            coreLoop()
-        end
+RunService.Heartbeat:Connect(function(dt)
+    sumDt += dt
+    if sumDt > 1 / module.Settings.Heartbeat then
+        sumDt = 0
+        coreLoop()
     end
-)
+end)
 
 return module
