@@ -4,7 +4,7 @@ Area.__index = Area
 
 local constructors
 constructors = {
-   default = function(corners, vectors) -- first param needs the four positions of a corner (origin and three perpendicular corners), second needs the vectors of those three perpendicular corners
+   default = function(corners, vectors, CFrame) -- first param needs the four positions of a corner (origin and three perpendicular corners), second needs the vectors of those three perpendicular corners
         local self = setmetatable({}, Area)
         self.P1 = corners[1] 
         self.P2 = corners[2]
@@ -13,6 +13,7 @@ constructors = {
         self.u = vectors[1]
         self.v = vectors[2]
         self.w = vectors[3]
+        self.CFrame = CFrame
         return self
     end,
     CF_Size = function (CFrame, Size)
@@ -24,7 +25,7 @@ constructors = {
         local u = pos1 - pos2
         local v = pos1 - pos3
         local w = pos1 - pos4        
-        return constructors.default({pos1,pos2,pos3,pos4} , {u, v, w})
+        return constructors.default({pos1,pos2,pos3,pos4} , {u, v, w}, CFrame)
     end,
     part = function(part)
         return constructors.CF_Size(part.CFrame, part.Size)
@@ -56,6 +57,10 @@ function Area:isInArea(position) -- expects a vector3 instance, returns true if 
     local constraint2 = self.v:Dot(self.P1) >= vx and vx >= self.v:Dot(self.P3)
     local constraint3 = self.w:Dot(self.P1) >= wx and wx >= self.w:Dot(self.P4)
     return constraint1 and constraint2 and constraint3
+end
+
+function Area:getCF_Size()
+    return self.CFrame, Vector3.new(self.u.X, self.v.Y, self.w.Z)
 end
 
 return Area

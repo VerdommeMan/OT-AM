@@ -1,4 +1,5 @@
 local Area = require(script.Area)
+local AreaV7 = require(script.AreaV7)
 
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
@@ -26,7 +27,7 @@ local mtAreas = {} -- different mt table because i dont want to pollute Areas wi
 local Areas = {} -- a list of areas
 mtAreas.__index = Areas
 
-function module.addArea(uniqueName, ...)
+function module.addArea(uniqueName, useAreaV7, ...)
     if Areas[uniqueName] then
         error("That name already exists")
     else
@@ -114,16 +115,14 @@ function module.switchMakeAreasVisible() -- call it to make the areas visible, c
         newFolder.Name = module.Settings.FolderName
         newFolder.Parent = workspace
 
-        for key, area in pairs(Areas) do
-            local Region = Region3.new(area.Area.MinV, area.Area.MaxV)
+        for key, area in pairs(Areas) do            
             local part = Instance.new("Part")
 
             for prop, value in pairs(module.Settings.Part) do
                 part[prop] = value
             end
             part.Name = key
-            part.CFrame = Region.CFrame
-            part.Size = Region.Size
+            part.CFrame , part.Size = area:getCF_Size()
             part.Parent = newFolder
         end
     end

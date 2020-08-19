@@ -65,4 +65,9 @@ function Area:isInArea(Position) -- expects a vector3 instance, returns true if 
     return self.MinV.X <= Position.X and Position.X <= self.MaxV.X and self.MinV.Y <= Position.Y and Position.Y <= self.MaxV.Y and self.MinV.Z <= Position.Z and Position.Z <= self.MaxV.Z
 end
 
+function Area:getCF_Size()
+    local region = Region3.new(self.MinV, self.MaxV)
+    return region.CFrame, region.Size
+end
+
 return Area
