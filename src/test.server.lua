@@ -5,7 +5,7 @@ local Lighting = game:GetService("Lighting")
 local skys = ServerStorage.Skys
 local module = require(ServerScriptService.MPRE)
 
-local testAreaV3 = require(ServerScriptService.MPRE.AreaV3)
+local testAreaV3 = require(ServerScriptService.MPRE.AreaV7)
 
 local test = module.addArea("test", workspace:WaitForChild("Part1"))
 

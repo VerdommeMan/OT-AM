@@ -1,33 +1,61 @@
-wait()
+-- names comes from the fact im storing 7 vectors
+local Area = {}
+Area.__index = Area
 
---https://math.stackexchange.com/questions/1472049/check-if-a-point-is-inside-a-rectangular-shaped-area-3d
-local part = workspace.TestV3.Part
-local c1 = workspace.TestV3.Corner1
-local c2 = workspace.TestV3.Corner2
-local c3 = workspace.TestV3.Corner3
-local c4 = workspace.TestV3.Corner4
+local constructors
+constructors = {
+   default = function(corners, vectors) -- first param needs the four positions of a corner (origin and three perpendicular corners), second needs the vectors of those three perpendicular corners
+        local self = setmetatable({}, Area)
+        self.P1 = corners[1] 
+        self.P2 = corners[2]
+        self.P3 = corners[3]
+        self.P4 = corners[4]
+        self.u = vectors[1]
+        self.v = vectors[2]
+        self.w = vectors[3]
+        return self
+    end,
+    CF_Size = function (CFrame, Size)
+        local pos1 = (CFrame * CFrame.new(Size.X/-2, Size.Y/-2, Size.Z/-2)).Position
+        local pos2 = (CFrame * CFrame.new(Size.X/2, Size.Y/-2, Size.Z/-2)).Position
+        local pos3 = (CFrame * CFrame.new(Size.X/-2, Size.Y/2, Size.Z/-2)).Position
+        local pos4 = (CFrame * CFrame.new(Size.X/-2, Size.Y/-2, Size.Z/2)).Position
+       
+        local u = pos1 - pos2
+        local v = pos1 - pos3
+        local w = pos1 - pos4        
+        return constructors.default({pos1,pos2,pos3,pos4} , {u, v, w})
+    end,
+    part = function(part)
+        return constructors.CF_Size(part.CFrame, part.Size)
+    end
+}
 
-local pos1 = (part.CFrame * CFrame.new(part.Size.X/-2, part.Size.Y/-2, part.Size.Z/-2)).Position
-local pos2 = (part.CFrame * CFrame.new(part.Size.X/2, part.Size.Y/-2, part.Size.Z/-2)).Position
-local pos3 = (part.CFrame * CFrame.new(part.Size.X/-2, part.Size.Y/2, part.Size.Z/-2)).Position
-local pos4 = (part.CFrame * CFrame.new(part.Size.X/-2, part.Size.Y/-2, part.Size.Z/2)).Position
+function Area.new(...) -- constructors for AreaV7
+    local n = select("#", ...)
+    local args = {...}
 
-local u = pos1 - pos2
-local v = pos1 - pos3
-local w = pos1 - pos4
+    if n == 1 and typeof(args[1]) == "Instance" then
+        return constructors.part(...)
+    elseif  n == 2 and typeof(args[1]) == "CFrame" and typeof(args[2]) == "Vector3" then
+        return  constructors.CF_Size(...)
+    elseif  n == 2 and typeof(args[1]) == "table" and #args[1] == 4 and typeof(args[2]) == "table" and #args[2] == 3 then
+        return constructors.default(...)
+    else
+        error("Incorrect given parameters")
+    end
+end
 
-local module = {}
+-- credit for the idea of checking an area https://math.stackexchange.com/questions/1472049/check-if-a-point-is-inside-a-rectangular-shaped-area-3d
+function Area:isInArea(position) -- expects a vector3 instance, returns true if the position is inside the area
+    local ux = self.u:Dot(position)
+    local vx = self.v:Dot(position)
+    local wx = self.w:Dot(position)
 
-function module.isInArea(x)
-    local ux = u:Dot(x)
-    local vx = v:Dot(x)
-    local wx = w:Dot(x)
-
-    local constraint1 = u:Dot(pos1) >= ux and ux >= u:Dot(pos2)
-    local constraint2 = v:Dot(pos1) >= vx and vx >= v:Dot(pos3)
-    local constraint3 = w:Dot(pos1) >= wx and wx >= w:Dot(pos4)
+    local constraint1 = self.u:Dot(self.P1) >= ux and ux >= self.u:Dot(self.P2)
+    local constraint2 = self.v:Dot(self.P1) >= vx and vx >= self.v:Dot(self.P3)
+    local constraint3 = self.w:Dot(self.P1) >= wx and wx >= self.w:Dot(self.P4)
     return constraint1 and constraint2 and constraint3
 end
 
-
-return module
+return Area
