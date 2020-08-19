@@ -17,7 +17,7 @@ module.Settings.Part = {  --contains the props of the part that will generated f
     Anchored = true
 }
 
---settings, cant be changed directly (read)
+--settings, cant be changed directly (read only)
 module.Settings.AutoAddPlayersCharacter = true -- if this is set to false then the person must manually add the player characters he wants to track
 module.Settings.TrackedCharacters = {} -- add models here that also need to be tracked next to the player, the model needs a PrimaryPart (this part will be tracked)
 
@@ -43,11 +43,7 @@ function module.addArea(uniqueName, ...)
 end
 
 function module.removeArea(identifier)
-    if Areas[identifier] then
-        Areas[identifier] = nil
-    else
-        error("That key doesnt exist or is already removed")
-    end
+    Areas[identifier] = nil
 end
 
 function module.getArea(indentifier)
