@@ -16,16 +16,16 @@ constructors = {
         self.CFrame = CFrame
         return self
     end,
-    CF_Size = function (CFrame, Size)
-        local pos1 = (CFrame * CFrame.new(Size.X/-2, Size.Y/-2, Size.Z/-2)).Position
-        local pos2 = (CFrame * CFrame.new(Size.X/2, Size.Y/-2, Size.Z/-2)).Position
-        local pos3 = (CFrame * CFrame.new(Size.X/-2, Size.Y/2, Size.Z/-2)).Position
-        local pos4 = (CFrame * CFrame.new(Size.X/-2, Size.Y/-2, Size.Z/2)).Position
+    CF_Size = function (cframe, Size)
+        local pos1 = (cframe * CFrame.new(Size.X/-2, Size.Y/-2, Size.Z/-2)).Position
+        local pos2 = (cframe * CFrame.new(Size.X/2, Size.Y/-2, Size.Z/-2)).Position
+        local pos3 = (cframe * CFrame.new(Size.X/-2, Size.Y/2, Size.Z/-2)).Position
+        local pos4 = (cframe * CFrame.new(Size.X/-2, Size.Y/-2, Size.Z/2)).Position
        
         local u = pos1 - pos2
         local v = pos1 - pos3
         local w = pos1 - pos4        
-        return constructors.default({pos1,pos2,pos3,pos4} , {u, v, w}, CFrame)
+        return constructors.default({pos1,pos2,pos3,pos4} , {u, v, w}, cframe)
     end,
     part = function(part)
         return constructors.CF_Size(part.CFrame, part.Size)
@@ -60,7 +60,7 @@ function Area:isInArea(position) -- expects a vector3 instance, returns true if 
 end
 
 function Area:getCF_Size()
-    return self.CFrame, Vector3.new(self.u.X, self.v.Y, self.w.Z)
+    return self.CFrame, Vector3.new(self.u.Magnitude, self.v.Magnitude, self.w.Magnitude)
 end
 
 return Area

@@ -51,8 +51,8 @@ function module.addArea(uniqueName, ...) -- first param needs to be unique key f
         local self = setmetatable({}, mtAreas) -- mt allows ppl to access other areas from this table
 
         if typeof(args[#args]) == "boolean" then -- the override
-            table.remove(args)
-            self.Area = args[#args] and AreaV2.new(args) or AreaV7.new(args)
+            local override = table.remove(args)
+            self.Area = override and AreaV2.new(table.unpack(args)) or AreaV7.new(table.unpack(args))
         else
             self.Area = checkIfAutoDetermineWhichArea(args[1]) and AreaV2.new(...) or AreaV7.new(...)
         end
@@ -145,7 +145,7 @@ function module.switchMakeAreasVisible() -- call it to make the areas visible, c
                 part[prop] = value
             end
             part.Name = key
-            part.CFrame , part.Size = area:getCF_Size()
+            part.CFrame , part.Size = area.Area:getCF_Size()
             part.Parent = newFolder
         end
     end

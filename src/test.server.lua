@@ -5,8 +5,6 @@ local Lighting = game:GetService("Lighting")
 local skys = ServerStorage.Skys
 local module = require(ServerScriptService.MPRE)
 
-local testAreaV3 = require(ServerScriptService.MPRE.AreaV7)
-
 local test = module.addArea("test", workspace:WaitForChild("Part1"))
 
 local function emptyLightning()
@@ -37,7 +35,7 @@ test2.onLeave:Connect(function()
     emptyLightning()
 end)
 
-local test3 = module.addArea("test3", workspace:WaitForChild("Part3"))
+local test3 = module.addArea("test3", workspace:WaitForChild("Part3"), true)
 
 test3.onEnter:Connect(function() 
     print("enter 3")
@@ -48,17 +46,9 @@ test3.onLeave:Connect(function()
     print("leave 3")
     emptyLightning()
 end)
-local char = Players.PlayerAdded:Wait().CharacterAdded:Wait()
-while true do
-    print(testAreaV3.isInArea(char.PrimaryPart.Position))
-    wait(5)
-end
--- spawn(function()
-    
--- end)
 
--- while true do
---     wait(10)
---     print("## Making the Areas (in)visible ##")
---     module.switchMakeAreasVisible()
--- end
+while true do
+    wait(10)
+    print("## Making the Areas (in)visible ##")
+    module.switchMakeAreasVisible()
+end
