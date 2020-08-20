@@ -35,15 +35,9 @@ constructors = {
         -- credit for conversion https://devforum.roblox.com/t/part-to-region3-help/251348/5
         return constructors.default(minv , maxv)
     end,
-    -- Pos_Size = function (Position, Size)  -- flawed calculation
-    --    return  constructors.default(Position-(Size/2), Position+(Size/2))
-    -- end,
     part = function(part)
         return constructors.CF_Size(part.CFrame, part.Size)
     end
-    -- part = function(part)
-    --     return constructors.Pos_Size(part.Position, part.Size)
-    -- end
 }
 
 function Area.new(...) -- constructors for Area
@@ -61,8 +55,8 @@ function Area.new(...) -- constructors for Area
     end
 end
 
-function Area:isInArea(Position) -- expects a vector3 instance, returns true if the position is inside the area
-    return self.MinV.X <= Position.X and Position.X <= self.MaxV.X and self.MinV.Y <= Position.Y and Position.Y <= self.MaxV.Y and self.MinV.Z <= Position.Z and Position.Z <= self.MaxV.Z
+function Area:isInArea(position) -- expects a vector3 instance, returns true if the position is inside the area
+    return self.MinV.X <= position.X and position.X <= self.MaxV.X and self.MinV.Y <= position.Y and position.Y <= self.MaxV.Y and self.MinV.Z <= position.Z and position.Z <= self.MaxV.Z
 end
 
 function Area:getCF_Size()

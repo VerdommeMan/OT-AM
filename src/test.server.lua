@@ -1,6 +1,6 @@
 local ServerScriptService = game:GetService("ServerScriptService")
 local ServerStorage = game:GetService("ServerStorage")
-local Players= game:GetService("Players")
+local Players = game:GetService("Players")
 local Lighting = game:GetService("Lighting")
 local skys = ServerStorage.Skys
 local module = require(ServerScriptService.MPRE)
@@ -35,7 +35,7 @@ test2.onLeave:Connect(function()
     emptyLightning()
 end)
 
-local test3 = module.addArea("test3", workspace:WaitForChild("Part3"), true)
+local test3 = module.addArea("test3", workspace:WaitForChild("Part3"))
 
 test3.onEnter:Connect(function() 
     print("enter 3")

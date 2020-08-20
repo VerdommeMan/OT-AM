@@ -27,8 +27,10 @@ local mtAreas = {} -- different mt table because i dont want to pollute Areas wi
 local Areas = {} -- a list of areas
 mtAreas.__index = Areas
 
-local function canUseAreaV2(CFrame) -- can only determine if i can use AreaV2 if they use the constructors with part or CFrame
-   return false
+local function canUseAreaV2(cf) -- 
+    local x, y, z = cf:ToEulerAnglesYXZ()
+    x ,y, z = math.round(math.deg(x)),math.round(math.deg(y)), math.round(math.deg(z))
+    return x%90 == 0 and y%90 ==0 and z%90 == 0
 end
 
 local function checkIfAutoDetermineWhichArea(arg)
