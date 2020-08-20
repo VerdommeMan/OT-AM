@@ -1,4 +1,4 @@
-local Area = require(script.Area)
+local AreaV2 = require(script.AreaV2)
 local AreaV7 = require(script.AreaV7)
 
 local RunService = game:GetService("RunService")
@@ -27,12 +27,35 @@ local mtAreas = {} -- different mt table because i dont want to pollute Areas wi
 local Areas = {} -- a list of areas
 mtAreas.__index = Areas
 
-function module.addArea(uniqueName, useAreaV7, ...)
+local function canUseAreaV2(CFrame) -- can only determine if i can use AreaV2 if they use the constructors with part or CFrame
+   return false
+end
+
+local function checkIfAutoDetermineWhichArea(arg)
+    if typeof(arg) == "Instance" then
+        return canUseAreaV2(arg.CFrame)
+    elseif typeof(arg) == "CFrame" then
+        return canUseAreaV2(arg)
+    end
+    return false -- cant determine for these types
+end
+
+function module.addArea(uniqueName, ...) -- first param needs to be unique key for the area, then you add the constructor parameters and as last you have an optional override (by adding a bool at the end true is AreaV2 and false is AreaV7)
+    local args = {...}
+
     if Areas[uniqueName] then
         error("That name already exists")
+    elseif #args == 0 then
+        error("Wrong given parameters")
     else
         local self = setmetatable({}, mtAreas) -- mt allows ppl to access other areas from this table
-        self.Area = Area.new(...)
+
+        if typeof(args[#args]) == "boolean" then -- the override
+            table.remove(args)
+            self.Area = args[#args] and AreaV2.new(args) or AreaV7.new(args)
+        else
+            self.Area = checkIfAutoDetermineWhichArea(args[1]) and AreaV2.new(...) or AreaV7.new(...)
+        end
         self.enter = Instance.new("BindableEvent")
         self.leave = Instance.new("BindableEvent")
         self.onEnter = self.enter.Event
