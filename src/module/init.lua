@@ -1,5 +1,6 @@
 local AreaV2 = require(script.AreaV2)
 local AreaV7 = require(script.AreaV7)
+local ObjectTracker = require(script.ObjectTracker)
 
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
@@ -20,7 +21,7 @@ module.Settings.Part = {  --contains the props of the part that will generated f
 
 --settings, cant be changed directly (read only)
 module.Settings.AutoAddPlayersCharacter = true -- if this is set to false then the person must manually add the player characters he wants to track
-module.Settings.TrackedCharacters = {} -- add models here that also need to be tracked next to the player, the model needs a PrimaryPart (this part will be tracked)
+module.Settings.TrackedObjects = {} -- add objects here that also need to be tracked next to the player, the models needs a PrimaryPart 
 
 -- other stuff
 local mtAreas = {} -- different mt table because i dont want to pollute Areas with metamethods
@@ -80,16 +81,38 @@ local function isValidChar(char)
     return char and typeof(char) == "Instance" and char:IsA("Model") and char.PrimaryPart
 end
 
+function module.addTrackedObject(objectKey,...) -- objectKey is optional, this is what is returned from the bindeable event and must be unique, second is the parameters for the TrackedObject
+    if module.Settings.TrackedObjects[objectKey] then
+        error("ObjectKey already exists, it must be unique")
+    else
+        module.setTrackedObject(objectKey,...)
+    end
+end
+
+function module.setTrackedObject(objectKey,...) -- objectKey is optional, this is what is returned from the bindeable event and must be unique, second is the parameters for the TrackedObject
+    if objectKey then
+        module.Settings.TrackedObjects[objectKey] = ObjectTracker.new(...)
+    else
+        local ot = ObjectTracker.new(...)
+        objectKey = ot:getOuterPart()
+        module.Settings.TrackedObjects[objectKey] = ot
+    end
+end
+
+function module.removeTrackedObject(objectKey)
+    module.Settings.TrackedObjects[objectKey] = nil
+end
+
 function module.addCharacter(character, uniqueKey) --first param must be a model with a PrimaryPart set, second param is optional, it sets the key of the char (give here the player if you set it to manual) if second param is left empty then character will be used as key
     if character and isValidChar(character) then
-        module.Settings.TrackedCharacters[uniqueKey or character] = character --ternary ftw
+        module.Settings.TrackedObjects[uniqueKey or character] = character --ternary ftw
     else
         error("First parameter must be a model with a set PrimaryPart")
     end
 end
 
 function module.removeCharacter(key) -- give the key of the character that needs to be removed
-    module.Settings.TrackedCharacters[key] = nil
+    module.Settings.TrackedObjects[key] = nil
 end
 
 local playerCharEvents = {} -- keeps a table of RBXScriptConnections
@@ -154,7 +177,7 @@ function module.switchMakeAreasVisible() -- call it to make the areas visible, c
 end
 
 local function coreLoop()
-    for player, character in pairs(module.Settings.TrackedCharacters) do
+    for player, character in pairs(module.Settings.TrackedObjects) do
         coroutine.wrap(function()
             for _, area in pairs(Areas) do
                 local contains, currentChar = area.Area:isInArea(character.PrimaryPart.Position), area.chars[character]

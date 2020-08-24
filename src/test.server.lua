@@ -1,6 +1,5 @@
 local ServerScriptService = game:GetService("ServerScriptService")
 local ServerStorage = game:GetService("ServerStorage")
-local Players = game:GetService("Players")
 local Lighting = game:GetService("Lighting")
 local skys = ServerStorage.Skys
 local module = require(ServerScriptService.MPRE)
@@ -46,6 +45,12 @@ test3.onLeave:Connect(function()
     print("leave 3")
     emptyLightning()
 end)
+local folder = workspace.TestV3
+local part = folder.Part
+
+folder.Corner1.CFrame = part.CFrame
+-- folder.Corner2.CFrame = part.CFrame * CFrame.new(0, 0, part.Size.Z/-2)
+folder.Corner2.Position = part.Position + part.CFrame.LookVector * part.Size.Z/2
 
 while true do
     wait(10)
