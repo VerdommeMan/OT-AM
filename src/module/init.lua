@@ -9,7 +9,7 @@ local module = {}
 
 --settings, can be changed directly instead of using the setters (read/write)
 module.Settings = {}
-module.Settings.Heartbeat = 1 --max 60
+module.Settings.Heartbeat = 2 --max 60
 module.Settings.FolderName = "MPRE: Areas" -- name used for the folder where the parts will be stored in for making Areas visible
 module.Settings.FrontCenterPosition = true -- feature is by default on, so instead of using the center of part to calculate if a player is inside an  area it will use the FrontCenterPosition (only if Size is available)
 module.Settings.Part = {  --contains the props of the part that will generated for that Area when its made visible
@@ -183,13 +183,13 @@ local function coreLoop()
     for key, to in pairs(module.Settings.TrackedObjects) do
         coroutine.wrap(function()
             for _, area in pairs(Areas) do
-                local contains, object = area.Area:isInArea(to:getPosition()), area.TrackedObjects[to]
+                local contains, object = area.Area:isInArea(module.Settings.FrontCenterPosition and to:getFCP() or to:getPosition()), area.TrackedObjects[to]
                 if not object and contains then
-                    area.enter:Fire(key, key:FindFirstChild("PlayerGui") ~= nil) -- (for second param) returns true if they key it returns is a player else it will the object itself that was givin to the ObjectTracker
+                    area.enter:Fire(key) -- (for second param) returns true if they key it returns is a player else it will the object itself that was givin to the ObjectTracker
                     area.TrackedObjects[to] = true
                     break
                 elseif object and not contains then
-                    area.leave:Fire(key, key:FindFirstChild("PlayerGui") ~= nil) --(for second param) returns true if they key it returns is a player else it will the object itself that was givin to the ObjectTracker
+                    area.leave:Fire(key) --(for second param) returns true if they key it returns is a player else it will the object itself that was givin to the ObjectTracker
                     area.TrackedObjects[to] = nil
                     break
                 end
@@ -198,6 +198,10 @@ local function coreLoop()
     end
 end
 
+--debug
+local tSum = 0
+local tQ = 0
+
 local sumDt = 0
 RunService.Heartbeat:Connect(function(dt)
     sumDt += dt
@@ -205,7 +209,9 @@ RunService.Heartbeat:Connect(function(dt)
         sumDt = 0
         local t = os.clock()
         coreLoop()
-        print(os.clock() - t)
+        tSum += os.clock() - t
+        tQ += 1
+      --  print(tSum/tQ)
     end
 end)
 

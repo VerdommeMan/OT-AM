@@ -3,26 +3,41 @@ local module = {}
 local constructors
 constructors = {
     default = function(object, key, size) -- all features supported
-        local selfObject = {}
-        selfObject.Object = object
-        selfObject.Key = key
-        function selfObject:getPosition()
+        local ObjectTracker = {}
+        ObjectTracker.Object = object
+        ObjectTracker.Key = key
+        ObjectTracker.Size = size
+        function ObjectTracker:getPosition()
             return self.Object.CFrame.Position
         end
-        selfObject.FrontCenterPosition = object.CFrame.Position + object.CFrame.LookVector * size.Z/2 -- or part.CFrame * CFrame.new(0, 0, part.Size.Z/-2)
-        return selfObject
+        function ObjectTracker:getFCP() --getFrontCenterPosition
+            return self.Object.CFrame.Position + self.Object.CFrame.LookVector * self.Size.Z/2  -- or part.CFrame * CFrame.new(0, 0, part.Size.Z/-2)
+        end
+        return ObjectTracker
     end,
-    defaultWithoutSize = function(object) -- limited features supported
-        local self = {}
-        self.Object = object -- also used as key when key not given
-        self.Position = object.CFrame.Position
-        return self
+    defaultWithoutSize = function(object, key) -- limited features supported
+        local ObjectTracker = {}
+        ObjectTracker.Object = object -- also used as key when key not given
+        ObjectTracker.Key = key
+        function ObjectTracker:getPosition()
+            return self.Object.CFrame.Position
+        end
+        function ObjectTracker:getFCP() -- no support
+            return self:getPosition()
+        end
+        return ObjectTracker
     end,
-    defaultOnlyPosition = function(object) -- no features supported
-        local self = {}
-        self.Object = object -- also used as key when key not given
-        self.Position = object.Position
-        return self
+    defaultOnlyPosition = function(object, key) -- no features supported
+        local ObjetTracker = {}
+        ObjetTracker.Object = object -- also used as key when key not given
+        ObjetTracker.Key = key
+        function ObjectTracker:getPosition()
+            return self.Object.Position
+        end
+        function ObjectTracker:getFCP() -- no support
+            return self:getPosition()
+        end
+        return ObjetTracker
     end,
     model = function(model) -- all features supported
        return constructors.default(model.PrimaryPart, model, model.PrimaryPart.Size)
