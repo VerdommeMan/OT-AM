@@ -96,7 +96,7 @@ end
 
 local playerCharEvents = {} -- keeps a table of RBXScriptConnections
 
-local function addPlayerCharEvents()
+local function addPlayerCharEvents() -- intended behavoir it only starts tracking new players that join, if you want to track already joind players then you must add them yourself
     table.insert(playerCharEvents, Players.PlayerAdded:Connect(function(player)
         table.insert(playerCharEvents, player.CharacterAdded:Connect(function(character)
             module.addTrackedObject(character, player)
@@ -107,11 +107,14 @@ local function addPlayerCharEvents()
     end))
 end
 
-local function removePlayerCharEvents()
+local function removePlayerCharEvents() -- intended behavior leave event never fires when shutdown and player was in an Area
     for _, event in ipairs(playerCharEvents) do
         event:Disconnect()
     end
     playerCharEvents = {}
+    for _, player in ipairs(Players:GetPlayers()) do
+        module.removeTrackedObject(player)
+    end
 end
 
 addPlayerCharEvents()

@@ -46,6 +46,12 @@ test3.onLeave:Connect(function()
     emptyLightning()
 end)
 
+spawn(function()
+    wait(15)
+    module.setAutoAddCharacter(false)
+    print("stopped tracking players chars")
+end)
+
 while true do
     wait(10)
     print("## Making the Areas (in)visible ##")
