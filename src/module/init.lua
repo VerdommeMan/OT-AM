@@ -11,6 +11,7 @@ local module = {}
 module.Settings = {}
 module.Settings.Heartbeat = 10 --max 60
 module.Settings.FolderName = "MPRE: Areas" -- name used for the folder where the parts will be stored in for making Areas visible
+module.Settings.FrontCenterPosition = true -- feature is by default on, so instead of using the center of part to calculate if a player is inside an  area it will use the FrontCenterPosition (only if Size is available)
 module.Settings.Part = {  --contains the props of the part that will generated for that Area when its made visible
     Transparency = 0.7,
     Color = Color3.fromRGB(255, 85, 255),
