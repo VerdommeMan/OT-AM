@@ -78,10 +78,6 @@ function module.getArea(indentifier)
     return Areas[indentifier]
 end
 
-local function isValidChar(char)
-    return char and typeof(char) == "Instance" and char:IsA("Model") and char.PrimaryPart
-end
-
 function module.addTrackedObject(objectKey,...) -- objectKey is optional, this is what is returned from the bindeable event and must be unique, second is the parameters for the TrackedObject
     if module.Settings.TrackedObjects[objectKey] then
         error("ObjectKey already exists, it must be unique")
@@ -104,27 +100,15 @@ function module.removeTrackedObject(objectKey)
     module.Settings.TrackedObjects[objectKey] = nil
 end
 
-function module.addCharacter(character, uniqueKey) --first param must be a model with a PrimaryPart set, second param is optional, it sets the key of the char (give here the player if you set it to manual) if second param is left empty then character will be used as key
-    if character and isValidChar(character) then
-        module.Settings.TrackedObjects[uniqueKey or character] = character --ternary ftw
-    else
-        error("First parameter must be a model with a set PrimaryPart")
-    end
-end
-
-function module.removeCharacter(key) -- give the key of the character that needs to be removed
-    module.Settings.TrackedObjects[key] = nil
-end
-
 local playerCharEvents = {} -- keeps a table of RBXScriptConnections
-local players = {} -- table of keys so that these characters can be removed from the tracked list when autoCharacteradded turned off
 
 local function addPlayerCharEvents()
     table.insert(playerCharEvents, Players.PlayerAdded:Connect(function(player)
-        table.insert(players, player)
         table.insert(playerCharEvents, player.CharacterAdded:Connect(function(character)
             module.addTrackedObject(player, character)
-            --module.addCharacter(character, player)
+        end))
+        table.insert(playerCharEvents, player.CharacterRemoving:Connect(function()
+            module.removeTrackedObject(player)
         end))
     end))
 end
@@ -134,12 +118,6 @@ local function removePlayerCharEvents()
         event:Disconnect()
     end
     playerCharEvents = {}
-
-    for _, player in ipairs(players) do 
-       -- module.removeCharacter(player)
-       module.removeTrackedObject(player)
-    end
-    players = {}
 end
 
 addPlayerCharEvents()
