@@ -78,22 +78,16 @@ function module.getArea(indentifier)
     return Areas[indentifier]
 end
 
-function module.addTrackedObject(objectKey,...) -- objectKey is optional, this is what is returned from the bindeable event and must be unique, second is the parameters for the TrackedObject
-    if module.Settings.TrackedObjects[objectKey] then
-        error("ObjectKey already exists, it must be unique")
+function module.addTrackedObject(object, objectKey, size) -- objectKey is optional, this is what is returned from the bindeable event and must be unique, second is the parameters for the TrackedObject
+    if module.Settings.TrackedObjects[objectKey or object] then
+        error("ObjectKey / object already exists as key, it must be unique")
     else
-        module.setTrackedObject(objectKey,...)
+        module.setTrackedObject(object, objectKey, size)
     end
 end
 
-function module.setTrackedObject(objectKey,...) -- objectKey is optional, this is what is returned from the bindeable event and must be unique, second is the parameters for the TrackedObject
-    if objectKey then
-        module.Settings.TrackedObjects[objectKey] = ObjectTracker.new(...)
-    else
-        local ot = ObjectTracker.new(...)
-        objectKey = ot.Object
-        module.Settings.TrackedObjects[objectKey] = ot
-    end
+function module.setTrackedObject(object, objectKey, size) -- object is the item you wanna track, objectKey is optional, this is what is returned from the bindeable event and must be unique, third is optional if you give an item without an Size property you can give it one so that you can still use FCP feature
+        module.Settings.TrackedObjects[objectKey or object] = ObjectTracker.new(object , size)
 end
 
 function module.removeTrackedObject(objectKey)
@@ -105,7 +99,7 @@ local playerCharEvents = {} -- keeps a table of RBXScriptConnections
 local function addPlayerCharEvents()
     table.insert(playerCharEvents, Players.PlayerAdded:Connect(function(player)
         table.insert(playerCharEvents, player.CharacterAdded:Connect(function(character)
-            module.addTrackedObject(player, character)
+            module.addTrackedObject(character, player)
         end))
         table.insert(playerCharEvents, player.CharacterRemoving:Connect(function()
             module.removeTrackedObject(player)

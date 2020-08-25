@@ -2,10 +2,9 @@ local module = {}
 
 local constructors
 constructors = {
-    default = function(object, key, size) -- all features supported
+    default = function(object, size) -- all features supported
         local ObjectTracker = {}
         ObjectTracker.Object = object
-        ObjectTracker.Key = key
         ObjectTracker.Size = size
         function ObjectTracker:getPosition()
             return self.Object.CFrame.Position
@@ -15,10 +14,9 @@ constructors = {
         end
         return ObjectTracker
     end,
-    defaultWithoutSize = function(object, key) -- limited features supported
+    defaultWithoutSize = function(object) -- limited features supported
         local ObjectTracker = {}
         ObjectTracker.Object = object -- also used as key when key not given
-        ObjectTracker.Key = key
         function ObjectTracker:getPosition()
             return self.Object.CFrame.Position
         end
@@ -27,10 +25,9 @@ constructors = {
         end
         return ObjectTracker
     end,
-    defaultOnlyPosition = function(object, key) -- no features supported
+    defaultOnlyPosition = function(object) -- no features supported
         local ObjetTracker = {}
         ObjetTracker.Object = object -- also used as key when key not given
-        ObjetTracker.Key = key
         function ObjectTracker:getPosition()
             return self.Object.Position
         end
@@ -40,10 +37,10 @@ constructors = {
         return ObjetTracker
     end,
     model = function(model) -- all features supported
-       return constructors.default(model.PrimaryPart, model, model.PrimaryPart.Size)
+       return constructors.default(model.PrimaryPart, model.PrimaryPart.Size)
     end,
     tool= function(tool) -- all features supported
-        return constructors.default(tool.Handle, tool,tool.Handle.Size)
+        return constructors.default(tool.Handle, tool.Handle.Size)
     end
 }
 
@@ -76,9 +73,9 @@ function module.new(object, Size) -- first param can be anything that has a CFra
         return constructors.tool(object)
    elseif hasCFrame(object) then -- every other thing that has a CFrame is supported like camera, part, etc
         if hasSize(object) then
-            return constructors.default(object, object, object.Size)
+            return constructors.default(object, object.Size)
         elseif Size then
-            return constructors.default(object, object, Size)
+            return constructors.default(object, Size)
         else -- no support for FCP feature
             return constructors.defaultWithoutSize(object)
         end
@@ -87,7 +84,6 @@ function module.new(object, Size) -- first param can be anything that has a CFra
    else
         error("That type of instance is not supported")
    end
-    
 end
 
 return module
