@@ -9,7 +9,7 @@ local module = {}
 
 --settings, can be changed directly instead of using the setters (read/write)
 module.Settings = {}
-module.Settings.Heartbeat = 10 --max 60
+module.Settings.Heartbeat = 1 --max 60
 module.Settings.FolderName = "MPRE: Areas" -- name used for the folder where the parts will be stored in for making Areas visible
 module.Settings.FrontCenterPosition = true -- feature is by default on, so instead of using the center of part to calculate if a player is inside an  area it will use the FrontCenterPosition (only if Size is available)
 module.Settings.Part = {  --contains the props of the part that will generated for that Area when its made visible
@@ -64,7 +64,7 @@ function module.addArea(uniqueName, ...) -- first param needs to be unique key f
         self.leave = Instance.new("BindableEvent")
         self.onEnter = self.enter.Event
         self.onLeave = self.leave.Event
-        self.chars = {}
+        self.TrackedObjects = {}
         Areas[uniqueName] = self
         return self
     end
@@ -95,7 +95,7 @@ function module.setTrackedObject(objectKey,...) -- objectKey is optional, this i
         module.Settings.TrackedObjects[objectKey] = ObjectTracker.new(...)
     else
         local ot = ObjectTracker.new(...)
-        objectKey = ot:getOuterPart()
+        objectKey = ot.Object
         module.Settings.TrackedObjects[objectKey] = ot
     end
 end
@@ -123,7 +123,8 @@ local function addPlayerCharEvents()
     table.insert(playerCharEvents, Players.PlayerAdded:Connect(function(player)
         table.insert(players, player)
         table.insert(playerCharEvents, player.CharacterAdded:Connect(function(character)
-            module.addCharacter(character, player)
+            module.addTrackedObject(player, character)
+            --module.addCharacter(character, player)
         end))
     end))
 end
@@ -135,7 +136,8 @@ local function removePlayerCharEvents()
     playerCharEvents = {}
 
     for _, player in ipairs(players) do 
-        module.removeCharacter(player)
+       -- module.removeCharacter(player)
+       module.removeTrackedObject(player)
     end
     players = {}
 end
@@ -178,17 +180,17 @@ function module.switchMakeAreasVisible() -- call it to make the areas visible, c
 end
 
 local function coreLoop()
-    for player, character in pairs(module.Settings.TrackedObjects) do
+    for key, to in pairs(module.Settings.TrackedObjects) do
         coroutine.wrap(function()
             for _, area in pairs(Areas) do
-                local contains, currentChar = area.Area:isInArea(character.PrimaryPart.Position), area.chars[character]
-                if not currentChar and contains then
-                    area.enter:Fire(player, player == character) --returns true if its custom added character or false if its player (if true first param will be the character instead of player since a custom npc doesnt have a player object)
-                    area.chars[character] = true
+                local contains, object = area.Area:isInArea(to:getPosition()), area.TrackedObjects[to]
+                if not object and contains then
+                    area.enter:Fire(key, key:FindFirstChild("PlayerGui") ~= nil) -- (for second param) returns true if they key it returns is a player else it will the object itself that was givin to the ObjectTracker
+                    area.TrackedObjects[to] = true
                     break
-                elseif currentChar and not contains then
-                    area.leave:Fire(player, player == character) --returns player and true if its custom added character or false if its player 
-                    area.chars[character] = nil
+                elseif object and not contains then
+                    area.leave:Fire(key, key:FindFirstChild("PlayerGui") ~= nil) --(for second param) returns true if they key it returns is a player else it will the object itself that was givin to the ObjectTracker
+                    area.TrackedObjects[to] = nil
                     break
                 end
             end
@@ -201,7 +203,9 @@ RunService.Heartbeat:Connect(function(dt)
     sumDt += dt
     if sumDt > 1 / module.Settings.Heartbeat then
         sumDt = 0
+        local t = os.clock()
         coreLoop()
+        print(os.clock() - t)
     end
 end)
 

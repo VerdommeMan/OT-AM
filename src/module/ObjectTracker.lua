@@ -3,11 +3,14 @@ local module = {}
 local constructors
 constructors = {
     default = function(object, key, size) -- all features supported
-        local self = {}
-        self.Object = key -- also used as key when key not given
-        self.Position = object.CFrame.Position
-        self.FrontCenterPosition = object.CFrame.Position + object.CFrame.LookVector * size.Z/2 -- or part.CFrame * CFrame.new(0, 0, part.Size.Z/-2)
-        return self
+        local selfObject = {}
+        selfObject.Object = object
+        selfObject.Key = key
+        function selfObject:getPosition()
+            return self.Object.CFrame.Position
+        end
+        selfObject.FrontCenterPosition = object.CFrame.Position + object.CFrame.LookVector * size.Z/2 -- or part.CFrame * CFrame.new(0, 0, part.Size.Z/-2)
+        return selfObject
     end,
     defaultWithoutSize = function(object) -- limited features supported
         local self = {}
