@@ -1,6 +1,6 @@
-local AreaV2 = require(script.AreaV2)
-local AreaV7 = require(script.AreaV7)
-local ObjectTracker = require(script.ObjectTracker)
+local AreaV2 = require(script:WaitForChild("AreaV2"))
+local AreaV7 = require(script:WaitForChild("AreaV7"))
+local ObjectTracker = require(script:WaitForChild("ObjectTracker"))
 
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
