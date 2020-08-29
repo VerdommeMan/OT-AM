@@ -96,15 +96,24 @@ end
 
 local playerCharEvents = {} -- keeps a table of RBXScriptConnections
 
-local function addPlayerCharEvents() -- intended behavoir it only starts tracking new players that join, if you want to track already joind players then you must add them yourself
-    table.insert(playerCharEvents, Players.PlayerAdded:Connect(function(player)
-        table.insert(playerCharEvents, player.CharacterAdded:Connect(function(character)
-            module.addTrackedObject(character, player)
-        end))
-        table.insert(playerCharEvents, player.CharacterRemoving:Connect(function()
-            module.removeTrackedObject(player)
-        end))
+local function addCharEvents(player)
+    table.insert(playerCharEvents, player.CharacterAdded:Connect(function(character)
+        module.addTrackedObject(character:WaitForChild("HumanoidRootPart").Parent, player) -- in my testing sometimes the PrimaryPart isnt set fast enough
     end))
+    table.insert(playerCharEvents, player.CharacterRemoving:Connect(function()
+        module.removeTrackedObject(player)
+    end))
+end
+
+
+local function addPlayerCharEvents() -- intended behavoir it only starts tracking new players that join, if you want to track already joind players then you must add them yourself
+    if RunService:IsClient() then -- different behavoir depending on executed on client or server (client only adds his char while server adds everyones char)
+       addCharEvents(Players.LocalPlayer)
+    else
+        table.insert(playerCharEvents, Players.PlayerAdded:Connect(function(player)
+            addCharEvents(player)
+        end))
+    end
 end
 
 local function removePlayerCharEvents() -- intended behavior leave event never fires when shutdown and player was in an Area
