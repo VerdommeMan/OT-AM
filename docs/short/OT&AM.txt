@@ -1,0 +1,85 @@
+
+This class is main class, which handles the interaction between the other classes, therefore you wont need to directly use the others
+
+
+API:
+
+Methods:
+    module.addArea(String indentifier, ...)
+        > indentifier is key used to store said Area, the Area can be retrieved using this key
+        > if indentifier already exists it will throw an error
+        > next you give in the arguments for the constructor of the Area (see other docs),
+        > it uses a feature to auto determine which Area it should use, you can disable this by manually adding a bool at the end of arguments
+        > true is AreaV2 and false is AreaV7
+        > returns the created Area
+    module.removeArea(String indentifier)
+        > removes the Area associated with said indentifier
+    module.getArea(String indentifier)
+        > returns the Area associated with said indentifier
+    module.addTrackedObject(Instance object, String objectkey, Vector3 size)
+        > object can be any instance that you want to track as long as it has a CFrame/Position prop or is a Model/Tool
+        > objectkey is they key used to store the TrackedObject, it must be unique or it will throw an error
+        > objectkey is also the key that will be returned as parameter in the function connected to onLeave/onEnter events
+        > objectkey and size are optional arguments, if objectkey isnt given then it will use object as objectkey
+    module.setTrackedObject(Instance object, String objectkey, Vector3 size)
+        > same as module.addTrackedObject only it wont error if the objectkey already exists
+    module.removeTrackedObject(objectkey)
+        > removes the TrackedObject that is associated with the objectkey
+    module.setAutoAddCharacter(Boolean bool)
+        > this is a feature which is on by default
+        > you pass the bool to turn said feature on/off
+    module.switchMakeAreasVisible()
+        > this is a feature, it is a switch which either makes all the areas visible or makes them all invisible
+        > call it make them visible and call it again to make them invisible again
+
+Properties: [READ ONLY]
+    module.Settings 
+        > This property is a dictionary which contains all the settings
+    Area.enter
+        > holds a reference to the BindableEvent used for onEnter
+    Area.leave
+        > holds a reference to the BindableEvent used for onLeave
+    Area.onEnter
+        > holds a reference to .Event of said BindableEvent
+        > when you connect a function to this, it will return the key of the TrackedObject as parameter to said function
+    Area.onLeave
+        > holds a reference to .Event of said BindableEvent
+        > when you connect a function to this, it will return the key of the TrackedObject as parameter to said function
+    Area.TrackedObjects
+        > a table holding all the TrackedObjects which are in that Area 
+
+Settings:
+    [READ/WRITE]
+    Settings.Heartbeat :Number
+        > it represents the amount times it calls the coreLoop per second, reduce this number to drastically lower the impact it has on performance but it will make the events less responsive
+        > has no minimum but max is 60 (you can try setting it higher but it wont make it go faster)
+    Settings.FolderName :String
+        > you can change this if you already have folder in that name which is only statistically speaking possible
+    Settings.FrontCenterPosition :Boolean
+        > by changing the bool you can turn on/off this feature
+    Settings.Part :Dictionary
+        > contains a Dictionary with as key the Property name and as value the property value, this is used to set the properties of the parts which will represents Area when switchMakeAreasVisible() is called 
+    [READ ONLY]
+    Settings.TrackedObjects :Dictionary
+        > in this dictionary are all the trackedObjects stored
+    Settings.AutoAddPlayersCharacter :Boolean
+        > this bool is internally used to keep record of in which state this feature is
+
+Features:
+    autoAddCharacter:
+        > this feature is by default on, it has different behavior on the client, on the server it auto adds all the players characters to the tracked objects
+        > on the client it only adds the character of the localplayer
+        > returns the Player the onEnter/onLeave events
+        > you can turn this feature on/off with module.setAutoAddCharacter(Boolean bool)
+    frontCenterPosition:
+        > or also refered to as FCP, is a feature which allows you to instead of tracking the center of object the front center,
+        > so that it feels like the event calls faster because as soon as the front enters the area it fires now instead of as soon as the center enters the area
+        > you can turn this feature on/off by manually setting it in Settings
+    switchMakeAreasVisible:
+        > this feature makes areas visible so that you can visually see them for debugging purposes,
+        > you can turn this feature on by calling module.switchMakeAreasVisible()
+    autoDetermineWhichArea:
+        > by default when you add the Area constructor arguments, this feature calculates (based on the args) which Area to construct 
+        > so it will use AV2 on Areas which are axis aligned and AV7 on those who arent 
+        > you can still manually specify which Area you want (see addArea)
+

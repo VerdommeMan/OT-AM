@@ -1,0 +1,28 @@
+
+This class replaces Region3 and adds method for checking if a Position is inside the Area.
+So that means the Area can only be Axis aligned/rotated or it will have unexpected results
+
+API:
+
+Constructors:
+    AreaV2.new(Vector3 minVector, Vector3 maxVector)
+        > returns an Area
+    AreaV2.new(CFrame cframe, Vector3 Size)
+        > turns a cframe and size into minVector and maxVector
+        > returns an Area
+    AreaV2.new(BasePart part)
+        > gets the Size and CFrame from this part
+        > turns a cframe and size into minVector and maxVector
+        > returns an Area
+
+Methods:
+    AreaV2:isInArea(Vector3 position)
+        > returns a boolean, true if the position is inside the area
+    AreaV2:getCF_Size()
+        > returns the CFrame and Size of said Area
+
+Properties:
+    AreaV2.minV
+        > returns Vector3 that is bottom corner of that Area
+    AreaV2.maxV
+        >  returns Vector3 that is a top corner diagonally from AreaV2.min of that Area

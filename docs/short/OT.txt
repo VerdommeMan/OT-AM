@@ -1,0 +1,22 @@
+
+This class is used for storing objects in an universal way, this way i can use methods to get the same result no matter which object was given
+
+API:
+
+Constructors:
+    ObjectTracker.new(Instance object, Vector3 size)
+    > Object is can be any istance that has either a Position/CFrame property or is a Model/Tool
+    > if object doest not contain a Size, there is an optional parameter size which you can give its size if you want to have support for FCP
+    > returns self
+Methods:
+    ObjectTracker:getPosition()
+        > returns a Vector3, which is the Position of said object (Position is center of the object)
+    ObjectTracker:getFCP()
+        > returns a Vector3, which is the Front Center Position (pos + lookvector * size.z/2) of said object or
+        > returns ObjectTracker:getPosition() if there is no size available 
+
+Properties:
+    ObjectTracker.Object
+        > returns the tracked Object
+    ObjectTracker.Size 
+        > returns a Vector3, which is the size of the Object or nil if no Size was given or found in the object

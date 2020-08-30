@@ -58,7 +58,7 @@ function Area:isInArea(position) -- expects a vector3 instance, returns true if 
     return constraint1 and constraint2 and constraint3
 end
 
-function Area:getCF_Size() --figured this one out myself
+function Area:getCF_Size()
     return CFrame.fromMatrix(self.P1 + self.u/2 + self.v/2 + self.w/2, self.u , self.v, self.w), Vector3.new(self.u.Magnitude, self.v.Magnitude, self.w.Magnitude)
 end
 

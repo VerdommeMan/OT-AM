@@ -1,5 +1,5 @@
 {
-  "name": "Object Tracker & Area Module",
+  "name": "Object Tracker & Area Manager",
   "tree": {
       "$className": "DataModel",
 
@@ -11,7 +11,7 @@
       },
       "ServerScriptService":{
         "$className": "ServerScriptService",
-        "MPRE":{
+        "OT&AM":{
           "$path": "src/module"
         },
         "Test":{

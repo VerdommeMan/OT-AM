@@ -1,0 +1,41 @@
+
+This class represents a rotated Region3, means that it support any rotation, but it is less efficient compared to AV2
+
+
+API:
+
+Constructors:
+    AreaV7.new(Table<Vector3> corners, Table<Vector3> vectors)
+        > the corners table must be 4 position of a corner of an Area and vectors is the three delta vectors
+        > returns an Area
+    AreaV7.new(CFrame cframe, Vector3 size)
+        > using the cframe and size it caculates 4 corners of said Area
+        > it calculates three delta vectors too
+        > returns an Area
+    AreaV7.new(BasePart part)
+        > gets the Size and CFrame from this part
+        > using the cframe and size it caculates 4 corners of said Area
+        > it calculates three delta vectors too
+        > returns an Area
+
+Methods:
+    AreaV7:isInArea(Vector3 position)
+        > returns a boolean, true if the position is inside the area
+    AreaV7:getCF_Size()
+        > returns the CFrame and Size of said Area
+
+Properties:
+    AreaV7.P1
+        > returns Vector3 thats is the middle of the other corners
+    AreaV7.P2
+        > returns Vector3 that is left corner and perpendicular to P1 
+    AreaV7.P3   
+         > returns Vector3 that is up corner and perpendicular to P1 
+    AreaV7.P4
+        > returns Vector3 that is left corner and perpendicular to P1
+    AreaV7.u
+        > returns Vector3 that is delta vector of P1 and P2
+    AreaV7.v
+        > returns Vector3 that is delta vector of P1 and P3
+    AreaV7.w
+        > returns Vector3 that is delta vector of P1 and P4

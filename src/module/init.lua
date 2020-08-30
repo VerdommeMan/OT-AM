@@ -10,8 +10,8 @@ local module = {}
 --settings, can be changed directly instead of using the setters (read/write)
 module.Settings = {}
 module.Settings.Heartbeat = 2 --max 60
-module.Settings.FolderName = "MPRE: Areas" -- name used for the folder where the parts will be stored in for making Areas visible
-module.Settings.FrontCenterPosition = true -- feature is by default on, so instead of using the center of part to calculate if a player is inside an  area it will use the FrontCenterPosition (only if Size is available)
+module.Settings.FolderName = "OT&AM: Areas" -- name used for the folder where the parts will be stored in for making Areas visible
+module.Settings.FrontCenterPosition = false -- so instead of using the center of part to calculate if a player is inside an  area it will use the FrontCenterPosition (only if Size is available)
 module.Settings.Part = {  --contains the props of the part that will generated for that Area when its made visible
     Transparency = 0.7,
     Color = Color3.fromRGB(255, 85, 255),
@@ -22,7 +22,7 @@ module.Settings.Part = {  --contains the props of the part that will generated f
 
 --settings, cant be changed directly (read only)
 module.Settings.AutoAddPlayersCharacter = true -- if this is set to false then the person must manually add the player characters he wants to track
-module.Settings.TrackedObjects = {} -- add objects here that also need to be tracked next to the player, the models needs a PrimaryPart 
+module.Settings.TrackedObjects = {} -- tracked objects are saved here
 
 -- other stuff
 local mtAreas = {} -- different mt table because i dont want to pollute Areas with metamethods
@@ -137,7 +137,7 @@ function module.setAutoAddCharacter(bool) -- set this to false if you want to ma
         end
         module.Settings.AutoAddPlayersCharacter = bool
     else
-        warn("The setting is already in this state")
+        warn("AutoAddCharacter is already in this state")
     end
 end
 
