@@ -4,26 +4,6 @@ local Lighting = game:GetService("Lighting")
 local skys = ServerStorage.Skys
 local module = require(ServerScriptService:WaitForChild("OT&AM"))
 
-local RR3 = require(ServerScriptService.RotatedRegion3)
-local AV2 = require(ServerScriptService["OT&AM"].AreaV2)
-local AV7 = require(ServerScriptService["OT&AM"].AreaV7)
-local testPart = workspace.Part1
-local testPos = Vector3.new(0,10,0)
-
-local function benchmark(func, self, name,...)
-    local sec = os.clock()
-    func(self,...)
-    print("This module "..name.. " Took: ".. os.clock() - sec)
-end
-
-local newRR3 = RR3.new(testPart.CFrame, testPart.Size)
-local newAV2 = AV2.new(testPart.CFrame, testPart.Size)
-local newAV7 = AV7.new(testPart.CFrame, testPart.Size)
-
-benchmark(newRR3.CastPoint,newRR3, "RR3",testPos)
-benchmark(newAV2.isInArea , newAV2, "AV2",testPos)
-benchmark(newAV7.isInArea  , newAV7, "AV7",testPos)
-
 local test = module.addArea("test", workspace:WaitForChild("Part1"))
 
 local function emptyLightning()
