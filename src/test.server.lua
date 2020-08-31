@@ -2,11 +2,11 @@ local ServerScriptService = game:GetService("ServerScriptService")
 local ServerStorage = game:GetService("ServerStorage")
 local Lighting = game:GetService("Lighting")
 local skys = ServerStorage.Skys
-local module = require(ServerScriptService.MPRE)
+local module = require(ServerScriptService:WaitForChild("OT&AM"))
 
 local RR3 = require(ServerScriptService.RotatedRegion3)
-local AV2 = require(ServerScriptService.MPRE.AreaV2)
-local AV7 = require(ServerScriptService.MPRE.AreaV7)
+local AV2 = require(ServerScriptService["OT&AM"].AreaV2)
+local AV7 = require(ServerScriptService["OT&AM"].AreaV7)
 local testPart = workspace.Part1
 local testPos = Vector3.new(0,10,0)
 
