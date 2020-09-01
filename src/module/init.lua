@@ -52,21 +52,30 @@ function module.addArea(uniqueName, ...) -- first param needs to be unique key f
     elseif #args == 0 then
         error("Wrong given parameters")
     else
-        local self = setmetatable({}, mtAreas) -- mt allows ppl to access other areas from this table
+        local area = setmetatable({}, mtAreas) -- mt allows ppl to access other areas from this table
 
         if typeof(args[#args]) == "boolean" then -- the override
             local override = table.remove(args)
-            self.Area = override and AreaV2.new(table.unpack(args)) or AreaV7.new(table.unpack(args))
+            area.Area = override and AreaV2.new(table.unpack(args)) or AreaV7.new(table.unpack(args))
         else
-            self.Area = checkIfAutoDetermineWhichArea(args[1]) and AreaV2.new(...) or AreaV7.new(...)
+            area.Area = checkIfAutoDetermineWhichArea(args[1]) and AreaV2.new(...) or AreaV7.new(...)
         end
-        self.enter = Instance.new("BindableEvent")
-        self.leave = Instance.new("BindableEvent")
-        self.onEnter = self.enter.Event
-        self.onLeave = self.leave.Event
-        self.TrackedObjects = {}
-        Areas[uniqueName] = self
-        return self
+        area.enter = Instance.new("BindableEvent")
+        area.leave = Instance.new("BindableEvent")
+        area.onEnter = area.enter.Event
+        area.onLeave = area.leave.Event
+        area.TrackedObjectKeys = {}
+
+        function area:getObjects()
+            local keys = {}
+            for key in pairs(self.TrackedObjectKeys) do
+                table.insert(keys, module.Settings.TrackedObjects[key])
+            end
+            return keys
+        end
+        
+        Areas[uniqueName] = area
+        return area
     end
 end
 
@@ -167,14 +176,14 @@ local function coreLoop()
     for key, to in pairs(module.Settings.TrackedObjects) do
         coroutine.wrap(function()
             for _, area in pairs(Areas) do
-                local contains, object = area.Area:isInArea(module.Settings.FrontCenterPosition and to:getFCP() or to:getPosition()), area.TrackedObjects[to]
+                local contains, object = area.Area:isInArea(module.Settings.FrontCenterPosition and to:getFCP() or to:getPosition()), area.TrackedObjectKeys[key]
                 if not object and contains then
-                    area.enter:Fire(key) -- (for second param) returns true if they key it returns is a player else it will the object itself that was givin to the ObjectTracker
-                    area.TrackedObjects[to] = true
+                    area.enter:Fire(key) 
+                    area.TrackedObjectKeys[key] = true
                     break
                 elseif object and not contains then
-                    area.leave:Fire(key) --(for second param) returns true if they key it returns is a player else it will the object itself that was givin to the ObjectTracker
-                    area.TrackedObjects[to] = nil
+                    area.leave:Fire(key) 
+                    area.TrackedObjectKeys[key] = nil
                     break
                 end
             end
@@ -189,7 +198,7 @@ local tQ = 0
 local sumDt = 0
 RunService.Heartbeat:Connect(function(dt)
     sumDt += dt
-    if sumDt > 1 / module.Settings.Heartbeat then
+    if sumDt >= 1 / module.Settings.Heartbeat then
         sumDt = 0
         local t = os.clock()
         coreLoop()
