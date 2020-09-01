@@ -31,6 +31,8 @@ Methods:
     module.switchMakeAreasVisible()
         > this is a feature, it is a switch which either makes all the areas visible or makes them all invisible
         > call it make them visible and call it again to make them invisible again
+    Area:getObjects()
+        > returns a table of objects which are in that Area
 
 Properties: [READ ONLY]
     module.Settings 
@@ -45,8 +47,8 @@ Properties: [READ ONLY]
     Area.onLeave
         > holds a reference to .Event of said BindableEvent
         > when you connect a function to this, it will return the key of the TrackedObject as parameter to said function
-    Area.TrackedObjects
-        > a table holding all the TrackedObjects which are in that Area 
+    Area.TrackedObjectKeys
+        > a table holding all the Tracked Objects its keys which are in that Area 
 
 Settings:
     [READ/WRITE]
