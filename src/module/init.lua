@@ -150,6 +150,17 @@ function module.setAutoAddCharacter(bool) -- set this to false if you want to ma
     end
 end
 
+function module.getAreas(objectKey)
+    local areas = {}
+
+    for _, area in pairs(Areas) do
+        if area.TrackedObjectKeys[objectKey] then
+            table.insert(areas, area)
+        end
+    end
+    return areas    
+end
+
 function module.switchMakeAreasVisible() -- call it to make the areas visible, call it again to make the areas invisible
     local folder = workspace:FindFirstChild(module.Settings.FolderName)
     if folder then

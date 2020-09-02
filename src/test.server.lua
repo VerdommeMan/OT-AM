@@ -49,6 +49,5 @@ end)
 while true do
     wait(10)
     print("## Making the Areas (in)visible ##")
-    print(test2:getObjects(),unpack(test2:getObjects()))
     module.switchMakeAreasVisible()
 end

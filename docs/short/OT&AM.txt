@@ -23,8 +23,10 @@ Methods:
         > objectkey and size are optional arguments, if objectkey isnt given then it will use object as objectkey
     module.setTrackedObject(Instance object, String objectkey, Vector3 size)
         > same as module.addTrackedObject only it wont error if the objectkey already exists
-    module.removeTrackedObject(objectkey)
+    module.removeTrackedObject(String objectkey)
         > removes the TrackedObject that is associated with the objectkey
+    module.getAreas(String objectkey)
+        > returns a table of areas which the object tied to the key is inside of in other words onEnter fired but onLeave didnt
     module.setAutoAddCharacter(Boolean bool)
         > this is a feature which is on by default
         > you pass the bool to turn said feature on/off
