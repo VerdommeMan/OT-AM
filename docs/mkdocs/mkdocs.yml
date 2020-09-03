@@ -1,0 +1,24 @@
+site_name: Object Tracker & Area Manager
+nav:
+    - What is OT&AM?: index.md
+    - When should OT&AM be used?: when.md
+    - Why should you use OT&AM?: why.md
+    - Usages: usage.md
+    - Benchmarks: benchmarks.md
+    - How does OT&AM work?: how.md
+    - Features: features.md
+    - API: API.md
+    - Settings: settings.md
+    - Code examples: code-examples.md
+    - Examples: examples.md
+    - FAQ: FAQ.md
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: amber
+    accent: purple
+    features:
+    - instant
+repo_url: https://github.com/VerdommeMan/OT-AM
