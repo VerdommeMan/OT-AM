@@ -24,13 +24,9 @@ This bool is internally used to keep record of in which state this feature curre
 
 <script>
 document.addEventListener('DOMContentLoaded', init);
-
 function init(){
     document.querySelectorAll("[data-md-component='toc'] li a").forEach( link =>{
-        console.log(link.innerHTML)
-        const reg = /\s*(\S+)/;
-        console.log(reg.exec(link.innerHTML))
-        link.innerHTML = link.innerHTML.match(reg)[1]
+        link.innerHTML = link.innerHTML.match(/\s*(\S+)/)[1]
     });
 }
 </script>
