@@ -50,7 +50,7 @@ Properties: [READ ONLY]
         > holds a reference to .Event of said BindableEvent
         > when you connect a function to this, it will return the key of the TrackedObject as parameter to said function
     Area.TrackedObjectKeys
-        > a table holding all the Tracked Objects its keys which are in that Area 
+        > a dictionary holding all the Tracked Objects its keys which are in that Area 
 
 Settings:
     [READ/WRITE]
