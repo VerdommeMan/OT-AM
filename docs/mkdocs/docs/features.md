@@ -9,7 +9,7 @@ FCP is a feature which allows you to track the front center of an object instead
 
 ##   switchMakeAreasVisible:
 This feature makes areas visible so that you can visually see them for debugging purposes, you can turn this feature on by calling 
-`#!lua module.switchMakeAreasVisible()`. The visualation is customizable. 
+`module.switchMakeAreasVisible()`. The visualation is customizable. 
 
 ##   autoDetermineWhichArea:
 By default when you add the Area constructor arguments, this feature calculates (based on the args) which Area to construct 

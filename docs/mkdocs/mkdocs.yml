@@ -22,3 +22,6 @@ theme:
     features:
     - instant
 repo_url: https://github.com/VerdommeMan/OT-AM
+markdown_extensions:
+  - admonition
+  - pymdownx.critic
