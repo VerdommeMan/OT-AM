@@ -11,7 +11,6 @@ nav:
     - Settings: settings.md
     - Code examples: code-examples.md
     - Examples: examples.md
-    - FAQ: FAQ.md
 
 theme:
   name: material

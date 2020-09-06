@@ -4,8 +4,8 @@ A shorter version can also be found in [docs/short/](https://github.com/Verdomme
 
 ## Methods
 
-### module.addArea({==String==} indentifier, ...) {==:Area==}
-The indentifier is key used to store said Area, the Area can be retrieved using this key. If indentifier already exists it will throw an error. Next you give in the arguments for the constructor of the Area (#TODO: constructors ).It uses a feature to auto determine which Area it should use, you can disable this by manually adding a bool at the end of arguments. True is AreaV2 and false is AreaV7. It returns the created Area.
+### module.addArea({==String==} indentifier, {==Variant==} ...) {==:Area==}
+The indentifier is key used to store said Area, the Area can be retrieved using this key. If indentifier already exists it will throw an error. Next you give in the arguments for the constructor of the Area.It uses a feature to auto determine which Area it should use, you can disable this by manually adding a bool at the end of arguments. True is AreaV2 and false is AreaV7. It returns the created Area.
 
 ### module.removeArea({==String==} indentifier) {==void==}
 Removes the Area associated with said indentifier.
@@ -15,7 +15,8 @@ Returns the Area associated with said indentifier.
 
 ### module.addTrackedObject({==Instance==} object, {==String==} objectkey, {==Vector3==} size) {==void==}
 Object can be any instance that you want to track as long as it has a CFrame/Position property or it is a Model/Tool. Objectkey is they key used to store the TrackedObject, it must be unique or it will throw an error. Objectkey is also the key that will be returned as parameter in the function connected to onLeave/onEnter events.
-Objectkey and size are optional arguments, if objectkey isnt given then it will use object as objectkey. (#TODO: Size)
+
+Objectkey and size are optional arguments, if objectkey isnt given then it will use object as objectkey. If an object doest not contain a Size then you can manually add a size if you want to have support for FCP.
 
 ### module.setTrackedObject({==Instance==} object, {==String==} objectkey, {==Vector3==} size) {==void==}
 Same as `module.addTrackedObject` but this function wont throw an error if the objectkey isnt unique. It will just overwrite the previous value.
@@ -57,7 +58,17 @@ Holds a reference to .Event of the `Area.leave` BindableEvent. When you connect 
 
 ### Area.TrackedObjectKeys {==:Dictionary==}
 Holds all the Tracked Objects its keys which are in that Area.
- 
+
+
+## Constructors for Area
+The arguments of these is what you need to pass to `module.addArea`.
+
+### Area.new({==CFrame==} cf, {==Vector3==} Size) {==:Area==}
+Returns an Area.
+
+### Area.new({==BasePart==} part) {==:Area==}
+Calls the other constructor internally, returns an Area.
+
 <script>
 document.addEventListener('DOMContentLoaded', init);
 function init(){
