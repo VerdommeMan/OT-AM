@@ -32,4 +32,5 @@ extra_css:
 extra_javascript:
   - js/highlight.pack.js
   - js/config.js
-  
+plugins:
+  - git-revision-date

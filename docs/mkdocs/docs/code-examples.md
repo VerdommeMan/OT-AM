@@ -28,3 +28,11 @@ module.Settings.FrontCenterPosition = true -- turn on this feature
 module.setAutoAddCharacter(false) -- disable autoAddCharacter feature
 
 ```
+
+## Adding objects
+
+``` lua
+local module = require(game:GetService("ServerStorage"):WaitForChild("OT&AM")) -- require the module
+
+module.addTrackedObject(workspace:WaitForChild("npc")) -- adds the NPC to the TrackedObjects
+```

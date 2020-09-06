@@ -1,6 +1,23 @@
+/* custom class for Type annotation*/
 mark.critic{
     color: orange;
     font-family: monospace;
     background-color: rgba(0,0,0,0);
     font-size: 1em;
 }
+/*
+@media only screen and (min-width: 76.25em) {
+    .md-main__inner {
+      max-width: none;
+    }
+    .md-sidebar--primary {
+      left: 0;
+    }
+    .md-sidebar--secondary {
+      right: 0;
+      margin-left: 0;
+      -webkit-transform: none;
+      transform: none;   
+    }
+  }
+  */
