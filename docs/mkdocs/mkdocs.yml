@@ -24,5 +24,12 @@ repo_url: https://github.com/VerdommeMan/OT-AM
 markdown_extensions:
   - admonition
   - pymdownx.critic
+  - pymdownx.highlight:
+      use_pygments: false
 extra_css: 
   - css/extras.css
+  - css/atom-one-dark.css
+extra_javascript:
+  - js/highlight.pack.js
+  - js/config.js
+  
