@@ -1,20 +1,19 @@
 # Why should you use OT&AM?
 
-link diagram or through table
+|                  OT&AM                  |              Zone+              |     (Rotated) Region3    |
+|:---------------------------------------:|:-------------------------------:|:------------------------:|
+|                                         |               PROS              |                          |
+|             Tracks anything             |          Complex shapes         |                          |
+|        Events (onLeave & onEnter)       |    Events (onLeave & onEnter)   |                          |
+|              Easy to setup              |         Easy to setup**         |                          |
+|       Areas unlimited size & parts      |                                 |                          |
+| Features (FCP, AreasVisibleSwitch, ...) |                                 |                          |
+|                Efficient*               |                                 |                          |
+|                                         |               CONS              |                          |
+|          Limited shapes of Area         |       Tracks only players       |         No events        |
+|                                         |     Areas limited size/parts    |   Lots of code to setup  |
+|                                         | **client & Server: seperate API | Areas limited size/parts |
 
-	OT&AM 						                Zone+ 				        region3
-pros	
-    Tracks anything that has CFrame/model/tool	complex shapes 			        none
-	Efficient					                Events (onLeave onEnter)
-	Events (onLeave onEnter)		
-	Areas unlimited size & unlimited parts		
-	Features (FCP, AreasVisibleSwitch,...)
+\*[see benchmarks](benchmarks.md)
 
- 
-cons 
- limited shapes of Area		tracks only players 		                slow + no events
-							Uses Region3 internally		                lots of code to setup
-							Area Size Limited		                    Area Size Limited
-	
-
-
+\*\* Client and server have different methods, while OT&AM doesn't
