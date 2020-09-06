@@ -9,8 +9,8 @@ Methods:
         > indentifier is key used to store said Area, the Area can be retrieved using this key
         > if indentifier already exists it will throw an error
         > next you give in the arguments for the constructor of the Area (see other docs),
-        > it uses a feature to auto determine which Area it should use, you can disable this by manually adding a bool at the end of arguments
-        > true is AreaV2 and false is AreaV7
+        > it uses a feature to auto determine which Area it should use, you can disable this by manually adding a string at the end of the arguments
+        > the string should the be area's name. I.e. "AreaV2" or "AreaV7". 
         > returns the created Area
     module.removeArea(String indentifier)
         > removes the Area associated with said indentifier

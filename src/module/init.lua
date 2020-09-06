@@ -1,5 +1,6 @@
-local AreaV2 = require(script:WaitForChild("AreaV2"))
-local AreaV7 = require(script:WaitForChild("AreaV7"))
+local shapes = {}
+shapes.AreaV2 = require(script:WaitForChild("AreaV2"))
+shapes.AreaV7 = require(script:WaitForChild("AreaV7"))
 local ObjectTracker = require(script:WaitForChild("ObjectTracker"))
 
 local RunService = game:GetService("RunService")
@@ -31,7 +32,7 @@ mtAreas.__index = Areas
 
 local function canUseAreaV2(cf) -- 
     local x, y, z = cf:ToEulerAnglesYXZ()
-    x ,y, z = math.round(math.deg(x)),math.round(math.deg(y)), math.round(math.deg(z))
+    x , y, z = math.round(math.deg(x)),math.round(math.deg(y)), math.round(math.deg(z))
     return x%90 == 0 and y%90 ==0 and z%90 == 0
 end
 
@@ -47,18 +48,17 @@ end
 function module.addArea(uniqueName, ...) -- first param needs to be unique key for the area, then you add the constructor parameters and as last you have an optional override (by adding a bool at the end true is AreaV2 and false is AreaV7)
     local args = {...}
 
-    if Areas[uniqueName] then
-        error("That name already exists")
-    elseif #args == 0 then
+    if #args == 0 then
         error("Wrong given parameters")
+    elseif Areas[uniqueName] then
+        error("That name already exists")
     else
         local area = setmetatable({}, mtAreas) -- mt allows ppl to access other areas from this table
-
-        if typeof(args[#args]) == "boolean" then -- the override
-            local override = table.remove(args)
-            area.Area = override and AreaV2.new(table.unpack(args)) or AreaV7.new(table.unpack(args))
+        
+        if typeof(args[#args]) == "string" and shapes[args[#args]] then -- the optional override, only works if the given string is a real type of Area
+            area.Area = shapes[table.remove(args)].new(unpack(args))
         else
-            area.Area = checkIfAutoDetermineWhichArea(args[1]) and AreaV2.new(...) or AreaV7.new(...)
+            area.Area = checkIfAutoDetermineWhichArea(args[1]) and shapes.AreaV2.new(...) or shapes.AreaV7.new(...)
         end
         area.enter = Instance.new("BindableEvent")
         area.leave = Instance.new("BindableEvent")
