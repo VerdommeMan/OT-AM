@@ -8,8 +8,8 @@ You can do this completely another way. But this is how i would do it:
 Module in SS and require from scripts in SSS
 
 ## CLIENT ONLY
-Module in RS + require from LS in playerscripts
+Module in RS and require from LS in playerscripts
 
 ## CLIENT & SERVER
-Module in RS + require from playerscripts and SSS
+Module in RS and require from playerscripts and SSS
 

@@ -24,6 +24,8 @@ repo_url: https://github.com/VerdommeMan/OT-AM
 markdown_extensions:
   - admonition
   - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.tabbed
   - pymdownx.highlight:
       use_pygments: false
 extra_css: 
