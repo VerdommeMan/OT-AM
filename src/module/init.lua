@@ -45,7 +45,7 @@ local function checkIfAutoDetermineWhichArea(arg)
     return false -- cant determine for these types
 end
 
-function module.addArea(uniqueName, ...) -- first param needs to be unique key for the area, then you add the constructor parameters and as last you have an optional override (by adding a bool at the end true is AreaV2 and false is AreaV7)
+function module.addArea(uniqueName, ...) -- first param needs to be unique key for the area, then you add the constructor parameters and as last you have an optional override 
     local args = {...}
 
     if #args == 0 then

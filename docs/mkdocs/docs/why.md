@@ -12,8 +12,8 @@
 |                                         |               CONS              |                          |
 |          Limited shapes of Area         |       Tracks only players       |         No events        |
 |                                         |     Areas limited size/parts    |   Lots of code to setup  |
-|                                         | **client & Server: seperate API | Areas limited size/parts |
+|                                         | Uses Region3 internally         | Areas limited size/parts |
 
 \*[see benchmarks](benchmarks.md)
 
-\*\* Client and server have different methods, while OT&AM doesn't
+\*\* Client and server have different methods (client & Server: seperate API), while OT&AM doesn't
