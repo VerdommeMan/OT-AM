@@ -1,3 +1,5 @@
+-- @Author: VerdommeMan, see https://github.com/VerdommeMan/OT-AM for more information
+
 local shapes = {}
 shapes.AreaV2 = require(script:WaitForChild("AreaV2"))
 shapes.AreaV7 = require(script:WaitForChild("AreaV7"))
