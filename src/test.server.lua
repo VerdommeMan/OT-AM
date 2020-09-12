@@ -51,3 +51,4 @@ while true do
     print("## Making the Areas (in)visible ##")
     module.switchMakeAreasVisible()
 end
+

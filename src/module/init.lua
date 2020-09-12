@@ -191,12 +191,12 @@ local function coreLoop()
             for _, area in pairs(Areas) do
                 local contains, object = area.Area:isInArea(module.Settings.FrontCenterPosition and to:getFCP() or to:getPosition()), area.TrackedObjectKeys[key]
                 if not object and contains then
-                    area.enter:Fire(key) 
                     area.TrackedObjectKeys[key] = true
+                    area.enter:Fire(key) 
                     break
                 elseif object and not contains then
-                    area.leave:Fire(key) 
                     area.TrackedObjectKeys[key] = nil
+                    area.leave:Fire(key) 
                     break
                 end
             end
