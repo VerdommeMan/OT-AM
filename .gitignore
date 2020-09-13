@@ -1,5 +1,6 @@
 # Project place file
 /ROJO.rbxlx
+test.server.lua
 
 # Roblox Studio lock files
 /*.rbxlx.lock

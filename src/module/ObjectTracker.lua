@@ -14,7 +14,7 @@ constructors = {
         end
         return ObjectTracker
     end,
-    defaultWithoutSize = function(object) -- limited features supported
+    defaultWithoutSize = function(object) -- no features supported
         local ObjectTracker = {}
         ObjectTracker.Object = object -- also used as key when key not given
         function ObjectTracker:getPosition()

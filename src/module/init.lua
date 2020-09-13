@@ -204,20 +204,12 @@ local function coreLoop()
     end
 end
 
---debug
-local tSum = 0
-local tQ = 0
-
 local sumDt = 0
 RunService.Heartbeat:Connect(function(dt)
     sumDt += dt
     if sumDt >= 1 / module.Settings.Heartbeat then
         sumDt = 0
-        local t = os.clock()
         coreLoop()
-        tSum += os.clock() - t
-        tQ += 1
-      --  print(tSum/tQ)
     end
 end)
 
