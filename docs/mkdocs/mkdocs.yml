@@ -13,6 +13,9 @@ nav:
     - Examples: examples.md
 
 theme:
+  favicon: media/radar.png
+  icon:
+    logo: material/radar
   name: material
   palette:
     scheme: slate
@@ -21,6 +24,7 @@ theme:
     features:
     - instant
 repo_url: https://github.com/VerdommeMan/OT-AM
+repo_name: OT-AM
 markdown_extensions:
   - admonition
   - pymdownx.critic
