@@ -9,5 +9,5 @@ This module handles the interaction between my other modules. You can add any ob
 - or you can directly download it from [/src](src/)
 
 ## Documentation
-- [see the full documentation](pathtodocs)
+- [see the full documentation](https://verdommeman.github.io/OT-AM/)
 - [see this folder containing short versions of the documentation](docs/short/) (only need to read OT&AM)
