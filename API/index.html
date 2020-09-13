@@ -1,0 +1,845 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+    
+    
+      
+        <title>API - Object Tracker & Area Manager</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.4dd2dd8d.min.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/palette.6a5ad368.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ffc105">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../css/extras.css">
+    
+      <link rel="stylesheet" href="../css/atom-one-dark.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="amber" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Object Tracker & Area Manager" class="md-header-nav__button md-logo" aria-label="Object Tracker & Area Manager">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Object Tracker & Area Manager
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              API
+            
+          </span>
+        </div>
+      
+    </div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/VerdommeMan/OT-AM/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Object Tracker & Area Manager" class="md-nav__button md-logo" aria-label="Object Tracker & Area Manager">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Object Tracker & Area Manager
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/VerdommeMan/OT-AM/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="What is OT&AM?" class="md-nav__link">
+      What is OT&AM?
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../when/" title="When should OT&AM be used?" class="md-nav__link">
+      When should OT&AM be used?
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../why/" title="Why should you use OT&AM?" class="md-nav__link">
+      Why should you use OT&AM?
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../usage/" title="Usages" class="md-nav__link">
+      Usages
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../benchmarks/" title="Benchmarks" class="md-nav__link">
+      Benchmarks
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../how/" title="How does OT&AM work?" class="md-nav__link">
+      How does OT&AM work?
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../features/" title="Features" class="md-nav__link">
+      Features
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        API
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="API" class="md-nav__link md-nav__link--active">
+      API
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#moduleaddareaczjqqkd0stringczjqqkd1-indentifier-czjqqkd2variantczjqqkd3-czjqqkd4areaczjqqkd5" class="md-nav__link">
+    module.addArea(czjqqkd:0Stringczjqqkd:1 indentifier, czjqqkd:2Variantczjqqkd:3 ...) czjqqkd:4:Areaczjqqkd:5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moduleremoveareaczjqqkd6stringczjqqkd7-indentifier-czjqqkd8voidczjqqkd9" class="md-nav__link">
+    module.removeArea(czjqqkd:6Stringczjqqkd:7 indentifier) czjqqkd:8voidczjqqkd:9
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulegetareaczjqqkd10stringczjqqkd11-indentifier-czjqqkd12areaczjqqkd13" class="md-nav__link">
+    module.getArea(czjqqkd:10Stringczjqqkd:11 indentifier) czjqqkd:12:Areaczjqqkd:13
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moduleaddtrackedobjectczjqqkd14instanceczjqqkd15-object-czjqqkd16stringczjqqkd17-objectkey-czjqqkd18vector3czjqqkd19-size-czjqqkd20voidczjqqkd21" class="md-nav__link">
+    module.addTrackedObject(czjqqkd:14Instanceczjqqkd:15 object, czjqqkd:16Stringczjqqkd:17 objectkey, czjqqkd:18Vector3czjqqkd:19 size) czjqqkd:20voidczjqqkd:21
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulesettrackedobjectczjqqkd22instanceczjqqkd23-object-czjqqkd24stringczjqqkd25-objectkey-czjqqkd26vector3czjqqkd27-size-czjqqkd28voidczjqqkd29" class="md-nav__link">
+    module.setTrackedObject(czjqqkd:22Instanceczjqqkd:23 object, czjqqkd:24Stringczjqqkd:25 objectkey, czjqqkd:26Vector3czjqqkd:27 size) czjqqkd:28voidczjqqkd:29
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moduleremovetrackedobjectczjqqkd30stringczjqqkd31-objectkey-czjqqkd32voidczjqqkd33" class="md-nav__link">
+    module.removeTrackedObject(czjqqkd:30Stringczjqqkd:31 objectkey) czjqqkd:32voidczjqqkd:33
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulegetareasczjqqkd34stringczjqqkd35-objectkey-czjqqkd36tableczjqqkd37" class="md-nav__link">
+    module.getAreas(czjqqkd:34Stringczjqqkd:35 objectkey) czjqqkd:36:Tableczjqqkd:37
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulesetautoaddcharacterczjqqkd38booleanczjqqkd39-bool-czjqqkd40voidczjqqkd41" class="md-nav__link">
+    module.setAutoAddCharacter(czjqqkd:38Booleanczjqqkd:39 bool) czjqqkd:40voidczjqqkd:41
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moduleswitchmakeareasvisible-czjqqkd42voidczjqqkd43" class="md-nav__link">
+    module.switchMakeAreasVisible() czjqqkd:42voidczjqqkd:43
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#areagetobjects-czjqqkd44tableczjqqkd45" class="md-nav__link">
+    Area:getObjects() czjqqkd:44:Tableczjqqkd:45
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+    <nav class="md-nav" aria-label="Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modulesettings-czjqqkd46dictionaryczjqqkd47" class="md-nav__link">
+    module.Settings czjqqkd:46:Dictionaryczjqqkd:47
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#areaenter-czjqqkd48bindableeventczjqqkd49" class="md-nav__link">
+    Area.enter czjqqkd:48:BindableEventczjqqkd:49
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arealeave-czjqqkd50bindableeventczjqqkd51" class="md-nav__link">
+    Area.leave czjqqkd:50:BindableEventczjqqkd:51
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#areaonenter-czjqqkd52bindableeventeventczjqqkd53" class="md-nav__link">
+    Area.onEnter czjqqkd:52:BindableEvent.Eventczjqqkd:53
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#areaonleave-czjqqkd54bindableeventeventczjqqkd55" class="md-nav__link">
+    Area.onLeave czjqqkd:54:BindableEvent.Eventczjqqkd:55
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#areatrackedobjectkeys-czjqqkd56dictionaryczjqqkd57" class="md-nav__link">
+    Area.TrackedObjectKeys czjqqkd:56:Dictionaryczjqqkd:57
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constructors-for-area" class="md-nav__link">
+    Constructors for Area
+  </a>
+  
+    <nav class="md-nav" aria-label="Constructors for Area">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#areanewczjqqkd58cframeczjqqkd59-cf-czjqqkd60vector3czjqqkd61-size-czjqqkd62areaczjqqkd63" class="md-nav__link">
+    Area.new(czjqqkd:58CFrameczjqqkd:59 cf, czjqqkd:60Vector3czjqqkd:61 Size) czjqqkd:62:Areaczjqqkd:63
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#areanewczjqqkd64basepartczjqqkd65-part-czjqqkd66areaczjqqkd67" class="md-nav__link">
+    Area.new(czjqqkd:64BasePartczjqqkd:65 part) czjqqkd:66:Areaczjqqkd:67
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../settings/" title="Settings" class="md-nav__link">
+      Settings
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../code-examples/" title="Code examples" class="md-nav__link">
+      Code examples
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../examples/" title="Examples" class="md-nav__link">
+      Examples
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#moduleaddareaczjqqkd0stringczjqqkd1-indentifier-czjqqkd2variantczjqqkd3-czjqqkd4areaczjqqkd5" class="md-nav__link">
+    module.addArea(czjqqkd:0Stringczjqqkd:1 indentifier, czjqqkd:2Variantczjqqkd:3 ...) czjqqkd:4:Areaczjqqkd:5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moduleremoveareaczjqqkd6stringczjqqkd7-indentifier-czjqqkd8voidczjqqkd9" class="md-nav__link">
+    module.removeArea(czjqqkd:6Stringczjqqkd:7 indentifier) czjqqkd:8voidczjqqkd:9
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulegetareaczjqqkd10stringczjqqkd11-indentifier-czjqqkd12areaczjqqkd13" class="md-nav__link">
+    module.getArea(czjqqkd:10Stringczjqqkd:11 indentifier) czjqqkd:12:Areaczjqqkd:13
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moduleaddtrackedobjectczjqqkd14instanceczjqqkd15-object-czjqqkd16stringczjqqkd17-objectkey-czjqqkd18vector3czjqqkd19-size-czjqqkd20voidczjqqkd21" class="md-nav__link">
+    module.addTrackedObject(czjqqkd:14Instanceczjqqkd:15 object, czjqqkd:16Stringczjqqkd:17 objectkey, czjqqkd:18Vector3czjqqkd:19 size) czjqqkd:20voidczjqqkd:21
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulesettrackedobjectczjqqkd22instanceczjqqkd23-object-czjqqkd24stringczjqqkd25-objectkey-czjqqkd26vector3czjqqkd27-size-czjqqkd28voidczjqqkd29" class="md-nav__link">
+    module.setTrackedObject(czjqqkd:22Instanceczjqqkd:23 object, czjqqkd:24Stringczjqqkd:25 objectkey, czjqqkd:26Vector3czjqqkd:27 size) czjqqkd:28voidczjqqkd:29
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moduleremovetrackedobjectczjqqkd30stringczjqqkd31-objectkey-czjqqkd32voidczjqqkd33" class="md-nav__link">
+    module.removeTrackedObject(czjqqkd:30Stringczjqqkd:31 objectkey) czjqqkd:32voidczjqqkd:33
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulegetareasczjqqkd34stringczjqqkd35-objectkey-czjqqkd36tableczjqqkd37" class="md-nav__link">
+    module.getAreas(czjqqkd:34Stringczjqqkd:35 objectkey) czjqqkd:36:Tableczjqqkd:37
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulesetautoaddcharacterczjqqkd38booleanczjqqkd39-bool-czjqqkd40voidczjqqkd41" class="md-nav__link">
+    module.setAutoAddCharacter(czjqqkd:38Booleanczjqqkd:39 bool) czjqqkd:40voidczjqqkd:41
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moduleswitchmakeareasvisible-czjqqkd42voidczjqqkd43" class="md-nav__link">
+    module.switchMakeAreasVisible() czjqqkd:42voidczjqqkd:43
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#areagetobjects-czjqqkd44tableczjqqkd45" class="md-nav__link">
+    Area:getObjects() czjqqkd:44:Tableczjqqkd:45
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+    <nav class="md-nav" aria-label="Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modulesettings-czjqqkd46dictionaryczjqqkd47" class="md-nav__link">
+    module.Settings czjqqkd:46:Dictionaryczjqqkd:47
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#areaenter-czjqqkd48bindableeventczjqqkd49" class="md-nav__link">
+    Area.enter czjqqkd:48:BindableEventczjqqkd:49
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arealeave-czjqqkd50bindableeventczjqqkd51" class="md-nav__link">
+    Area.leave czjqqkd:50:BindableEventczjqqkd:51
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#areaonenter-czjqqkd52bindableeventeventczjqqkd53" class="md-nav__link">
+    Area.onEnter czjqqkd:52:BindableEvent.Eventczjqqkd:53
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#areaonleave-czjqqkd54bindableeventeventczjqqkd55" class="md-nav__link">
+    Area.onLeave czjqqkd:54:BindableEvent.Eventczjqqkd:55
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#areatrackedobjectkeys-czjqqkd56dictionaryczjqqkd57" class="md-nav__link">
+    Area.TrackedObjectKeys czjqqkd:56:Dictionaryczjqqkd:57
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constructors-for-area" class="md-nav__link">
+    Constructors for Area
+  </a>
+  
+    <nav class="md-nav" aria-label="Constructors for Area">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#areanewczjqqkd58cframeczjqqkd59-cf-czjqqkd60vector3czjqqkd61-size-czjqqkd62areaczjqqkd63" class="md-nav__link">
+    Area.new(czjqqkd:58CFrameczjqqkd:59 cf, czjqqkd:60Vector3czjqqkd:61 Size) czjqqkd:62:Areaczjqqkd:63
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#areanewczjqqkd64basepartczjqqkd65-part-czjqqkd66areaczjqqkd67" class="md-nav__link">
+    Area.new(czjqqkd:64BasePartczjqqkd:65 part) czjqqkd:66:Areaczjqqkd:67
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/VerdommeMan/OT-AM/edit/master/docs/API.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="api">API</h1>
+<p>A shorter version can also be found in <a href="https://github.com/VerdommeMan/OT-AM/tree/master/docs/short">docs/short/</a></p>
+<h2 id="methods">Methods</h2>
+<h3 id="moduleaddareaczjqqkd0stringczjqqkd1-indentifier-czjqqkd2variantczjqqkd3-czjqqkd4areaczjqqkd5">module.addArea(<mark class="critic">String</mark> indentifier, <mark class="critic">Variant</mark> ...) <mark class="critic">:Area</mark></h3>
+<p>The indentifier is key used to store said Area, the Area can be retrieved using this key. If indentifier already exists it will throw an error. Next you give in the arguments for the constructor of the Area.It uses a feature to auto determine which Area it should use, you can disable this by manually adding a String at the end of the arguments.The String should the be area's name. I.e. <code>"AreaV2"</code> or <code>"AreaV7"</code>. It returns the created Area.</p>
+<h3 id="moduleremoveareaczjqqkd6stringczjqqkd7-indentifier-czjqqkd8voidczjqqkd9">module.removeArea(<mark class="critic">String</mark> indentifier) <mark class="critic">void</mark></h3>
+<p>Removes the Area associated with said indentifier.</p>
+<h3 id="modulegetareaczjqqkd10stringczjqqkd11-indentifier-czjqqkd12areaczjqqkd13">module.getArea(<mark class="critic">String</mark> indentifier) <mark class="critic">:Area</mark></h3>
+<p>Returns the Area associated with said indentifier.</p>
+<h3 id="moduleaddtrackedobjectczjqqkd14instanceczjqqkd15-object-czjqqkd16stringczjqqkd17-objectkey-czjqqkd18vector3czjqqkd19-size-czjqqkd20voidczjqqkd21">module.addTrackedObject(<mark class="critic">Instance</mark> object, <mark class="critic">String</mark> objectkey, <mark class="critic">Vector3</mark> size) <mark class="critic">void</mark></h3>
+<p>Object can be any instance that you want to track as long as it has a CFrame/Position property or it is a Model/Tool. Objectkey is they key used to store the TrackedObject, it must be unique or it will throw an error. Objectkey is also the key that will be returned as parameter in the function connected to onLeave/onEnter events.</p>
+<p>Objectkey and size are optional arguments, if objectkey isnt given then it will use object as objectkey. If an object doest not contain a Size then you can manually add a size if you want to have support for FCP.</p>
+<h3 id="modulesettrackedobjectczjqqkd22instanceczjqqkd23-object-czjqqkd24stringczjqqkd25-objectkey-czjqqkd26vector3czjqqkd27-size-czjqqkd28voidczjqqkd29">module.setTrackedObject(<mark class="critic">Instance</mark> object, <mark class="critic">String</mark> objectkey, <mark class="critic">Vector3</mark> size) <mark class="critic">void</mark></h3>
+<p>Same as <code>module.addTrackedObject</code> but this function wont throw an error if the objectkey isnt unique. It will just overwrite the previous value.</p>
+<h3 id="moduleremovetrackedobjectczjqqkd30stringczjqqkd31-objectkey-czjqqkd32voidczjqqkd33">module.removeTrackedObject(<mark class="critic">String</mark> objectkey) <mark class="critic">void</mark></h3>
+<p>Removes the TrackedObject that is associated with the objectkey.</p>
+<h3 id="modulegetareasczjqqkd34stringczjqqkd35-objectkey-czjqqkd36tableczjqqkd37">module.getAreas(<mark class="critic">String</mark> objectkey) <mark class="critic">:Table<Area></mark></h3>
+<p>Returns a table of areas which the object tied to the key is inside of, in other words onEnter fired but onLeave event didnt for that object.</p>
+<h3 id="modulesetautoaddcharacterczjqqkd38booleanczjqqkd39-bool-czjqqkd40voidczjqqkd41">module.setAutoAddCharacter(<mark class="critic">Boolean</mark> bool) <mark class="critic">void</mark></h3>
+<p>This function allows you turn on/off the autoAddCharacter feature. It is on by default.</p>
+<h3 id="moduleswitchmakeareasvisible-czjqqkd42voidczjqqkd43">module.switchMakeAreasVisible() <mark class="critic">void</mark></h3>
+<p>This is a feature, it is a switch which either makes all the areas visible or makes them all invisible. Call it make them visible and call it again to make them invisible again.</p>
+<h3 id="areagetobjects-czjqqkd44tableczjqqkd45">Area:getObjects() <mark class="critic">:Table<Objects></mark></h3>
+<p>Returns a table of objects which are in that Area.</p>
+<h2 id="properties">Properties</h2>
+<div class="admonition note">
+<p class="admonition-title">[READ ONLY]</p>
+</div>
+<h3 id="modulesettings-czjqqkd46dictionaryczjqqkd47">module.Settings <mark class="critic">:Dictionary</mark></h3>
+<p>This property is a dictionary which contains all the <a href="../settings/">settings</a>.</p>
+<h3 id="areaenter-czjqqkd48bindableeventczjqqkd49">Area.enter <mark class="critic">:BindableEvent</mark></h3>
+<p>Holds a reference to the BindableEvent used for onEnter.</p>
+<h3 id="arealeave-czjqqkd50bindableeventczjqqkd51">Area.leave <mark class="critic">:BindableEvent</mark></h3>
+<p>Holds a reference to the BindableEvent used for onLeave.</p>
+<h3 id="areaonenter-czjqqkd52bindableeventeventczjqqkd53">Area.onEnter <mark class="critic">:BindableEvent.Event</mark></h3>
+<p>Holds a reference to .Event of the <code>Area.enter</code> BindableEvent. When you connect a function to this, it will return the key of the TrackedObject that entered this Area as parameter to said function.</p>
+<h3 id="areaonleave-czjqqkd54bindableeventeventczjqqkd55">Area.onLeave <mark class="critic">:BindableEvent.Event</mark></h3>
+<p>Holds a reference to .Event of the <code>Area.leave</code> BindableEvent. When you connect a function to this, it will return the key of the TrackedObject that left this Area as parameter to said function.</p>
+<h3 id="areatrackedobjectkeys-czjqqkd56dictionaryczjqqkd57">Area.TrackedObjectKeys <mark class="critic">:Dictionary</mark></h3>
+<p>Holds all the Tracked Objects its keys which are in that Area.</p>
+<h2 id="constructors-for-area">Constructors for Area</h2>
+<p>The arguments of these is what you need to pass to <code>module.addArea</code>.</p>
+<h3 id="areanewczjqqkd58cframeczjqqkd59-cf-czjqqkd60vector3czjqqkd61-size-czjqqkd62areaczjqqkd63">Area.new(<mark class="critic">CFrame</mark> cf, <mark class="critic">Vector3</mark> Size) <mark class="critic">:Area</mark></h3>
+<p>Returns an Area.</p>
+<h3 id="areanewczjqqkd64basepartczjqqkd65-part-czjqqkd66areaczjqqkd67">Area.new(<mark class="critic">BasePart</mark> part) <mark class="critic">:Area</mark></h3>
+<p>Calls the other constructor internally, returns an Area.</p>
+<script>
+document.addEventListener('DOMContentLoaded', init);
+function init(){
+    document.querySelectorAll("[data-md-component='toc'] li a").forEach( link =>{
+        link.innerHTML = link.innerHTML.match(/\s*([^\s\()]+)/)[1]
+    });
+}
+</script>
+                
+                  
+                    
+
+<hr>
+<div class="md-source-date">
+  <small>
+    
+      Last update: 2020-09-06
+    
+  </small>
+</div>
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../features/" title="Features" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Features
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../settings/" title="Settings" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Settings
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.3636a4ec.min.js"></script>
+      <script src="../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../js/highlight.pack.js"></script>
+      
+        <script src="../js/config.js"></script>
+      
+    
+  </body>
+</html>
