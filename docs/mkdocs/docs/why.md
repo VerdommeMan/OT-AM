@@ -16,4 +16,4 @@
 
 \*[see benchmarks](benchmarks.md)
 
-\*\* Client and server have different methods (client & Server: seperate API), while OT&AM doesn't
+\*\*Client and server have different methods (client & Server: seperate API), while OT&AM doesn't

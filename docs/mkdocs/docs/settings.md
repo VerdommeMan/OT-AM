@@ -8,7 +8,7 @@ The `Settings` are a Property of the module thus you can access them as `module.
 It represents the amount times it calls the coreLoop per second, reduce this number to drastically lower the impact it has on performance but it will make the events less responsive has no minimum but max is 60 (you can try setting it higher but it wont make it go faster).
 
 ### Settings.FolderName {==:String==}
-You can change this if you already have folder in that name which is only theoretically speaking possible.
+You can change this if you already have folder in that name inside the workspace which is only theoretically speaking possible. This folder is created when the `switchMakeAreasVisible` feature is on, the visual Areas are stored in this folder.
 
 ### Settings.FrontCenterPosition {==:Boolean==}
 By changing the bool you can turn on/off this feature.
@@ -18,7 +18,7 @@ Contains a Dictionary with as key the Property name and as value the property va
 
 !!! note "\[READ ONLY\]" 
 ### Settings.TrackedObjects {==:Dictionary ==}
-All the added TrackedObjects get stored in that dictionary.
+All the added TrackedObjects get stored in this dictionary.
 ### Settings.AutoAddPlayersCharacter {==:Boolean==}
 This bool is internally used to keep record of in which state this feature currently is.
 

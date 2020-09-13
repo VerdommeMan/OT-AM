@@ -1,5 +1,5 @@
 # Benchmarks
-Here i compare the benchmarks between OT&AM, Zone+ and Region3. And each benchmark will have its rbxl file stored in the folder [benchmarks](https://github.com/VerdommeMan/OT-AM/tree/master/Benchmarks). So that you can easily see the difference for yourself.
+Here i compare the benchmarks between OT&AM, Zone+ and Region3. And each benchmark will have its rbxl file stored in the folder [benchmarks](https://github.com/VerdommeMan/OT-AM/tree/master/Benchmarks). So that you can easily benchmark it yourself.
 
 !!! note "If you run these benchmarks you will have different results but you should see a similar trend"
 
@@ -11,9 +11,9 @@ Here i compare the benchmarks between OT&AM, Zone+ and Region3. And each benchma
     - all benchmarks are done with localserver + 1 player
     - all benchmarks are done on the server
     - with coreloop i mean, one loop over areas and see if it found something, coreloop is basically the function/code that gets called each heartbeat
-    - I made a small custom module to track the coreloop of Zone+ and Region3
+    - I made a small custom module to track the coreloop.
     - Due to the fact that most Areas are not axis aligned means that Region3 will be practically misaligned for each area but since we are just comparing performance it doesnt matter.
-    - To run the benchmarks yourself, just download the rbxl file, open it with studio and enable a setup from SSS and Play, and wait for the comment in the output, the benchmarks have been setup to make it very easy to run them yourself, btw dont run two setups at the same time.
+    - To run the benchmarks yourself, just download the rbxl file, open it with studio and enable a setup from SSS and run it, and then wait for the comment in the output, the benchmarks have been setup to make it very easy to run them yourself, btw dont run two setups at the same time.
 
 ## Benchmarks OT&AM/Zone+/Region3
 

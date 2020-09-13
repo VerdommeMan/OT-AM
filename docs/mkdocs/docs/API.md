@@ -5,7 +5,7 @@ A shorter version can also be found in [docs/short/](https://github.com/Verdomme
 ## Methods
 
 ### module.addArea({==String==} indentifier, {==Variant==} ...) {==:Area==}
-The indentifier is key used to store said Area, the Area can be retrieved using this key. If indentifier already exists it will throw an error. Next you give in the arguments for the constructor of the Area.It uses a feature to auto determine which Area it should use, you can disable this by manually adding a String at the end of the arguments.The String should the be area's name. I.e. `"AreaV2"` or `"AreaV7"`. It returns the created Area.
+The indentifier is key used to store said Area, the Area can be retrieved using this key. If indentifier already exists it will throw an error. Next you give in the arguments for the constructor of the Area. It uses a feature to auto determine which Area it should use, you can disable this by manually adding a String at the end of the arguments.The String should the be area's name. I.e. `"AreaV2"` or `"AreaV7"`. It returns the created Area.
 
 ### module.removeArea({==String==} indentifier) {==void==}
 Removes the Area associated with said indentifier.

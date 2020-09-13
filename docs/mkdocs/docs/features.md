@@ -9,8 +9,8 @@ FCP is a feature which allows you to track the front center of an object instead
 
 ##   switchMakeAreasVisible:
 This feature makes areas visible so that you can visually see them for debugging purposes, you can turn this feature on by calling 
-`module.switchMakeAreasVisible()`. The visualation is customizable. 
+`module.switchMakeAreasVisible()`. The visualation is customizable by editing the `Settings.Part` dictionary. 
 
 ##   autoDetermineWhichArea:
-By default when you add the Area constructor arguments, this feature calculates (based on the args) which Area to construct 
+When you add an Area (`module.addArea`), this feature calculates (based on the args) which Area to construct 
 so it will use AV2 on Areas which are axis aligned and AV7 on those who arent. You can still manually specify which Area you want (see module.addArea)
