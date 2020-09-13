@@ -417,14 +417,14 @@
                 
                 
                 <h1 id="what-is-otam">What is OT&amp;AM?</h1>
-<p>OT&amp;AM is a module that handles the interaction between my other modules (OT,AV2,AV7...). The main purpose of OT&amp;AM is that it can track objects and gives you onLeave/onEnter events when that object enters an area. It's similar to <a href="https://1foreverhd.github.io/HDAdmin/projects/zoneplus/about/">Zone+</a> only this module supports not only the player but any object, further more it has many more features and it scales much better.</p>
+<p>OT&amp;AM is a module that handles the interaction between my other modules (OT,AV2,AV7...). The main purpose of OT&amp;AM is that it can track objects and gives you onLeave/onEnter events when that object interacts with an area. It's similar to <a href="https://1foreverhd.github.io/HDAdmin/projects/zoneplus/about/">Zone+</a> only this module supports not only the player but any object, further more it has many more features and it scales much better.</p>
 <h2 id="object-tracker">Object Tracker</h2>
-<p>This class is used for storing objects in an universal way, this way i can use methods to get the same result no matter which object was given</p>
+<p>This class is used for storing objects (Instances) in an universal way, this way i can use methods to get the same result no matter which object was given to it.</p>
 <h2 id="area-manager">Area Manager</h2>
-<p>I have different Area modules, atm i have only two: AV2 and AV7, but in the future i will have many more. AV2 is basically Region3 replacement and AV7 is Rotated Region3 replacement.</p>
-<p>OT&amp;AM manages these Areas for you, you dont need any knowledge about them at all. It uses a feature to auto determine which one it should construct.</p>
+<p>I have different Area modules, atm i have only two: AV2 and AV7, but in the future i will have many more. AV2 is basically Region3 replacement and AV7 is Rotated Region3 replacement. Their main purpose is for calculating PiP (Point in Polygon) which is basically calculating if a vector is inside an Area.</p>
+<p>OT&amp;AM manages these Areas for you, you dont need to have any knowledge about them at all. It uses a feature to auto determine which one it should construct.</p>
 <h2 id="what-i-mean-with-object">What i mean with Object</h2>
-<p>With object i refer to any instance that can exist in the explorer, e.g., Parts, Meshes, Cameras, Tools, Models, ... But not values like NumberValue, StringValue, etc</p>
+<p>With object i refer to any instance that can exist in the explorer, e.g., Parts, Meshes, Cameras, Tools, Models, ... But not values like NumberValue, StringValue, etc. Any instance that has a CFrame/Position or is Model/Tool is supported.</p>
 <h2 id="what-i-mean-with-area">What i mean with Area</h2>
 <p>Any 3D shape, atm i only support cuboids.</p>
                 
@@ -435,7 +435,7 @@
 <div class="md-source-date">
   <small>
     
-      Last update: 2020-09-07
+      Last update: 2020-09-13
     
   </small>
 </div>

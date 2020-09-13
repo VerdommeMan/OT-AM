@@ -423,9 +423,9 @@
 <p>FCP is a feature which allows you to track the front center of an object instead of tracking the center of an object. So that it feels like the event calls faster because as soon as the front enters the area it fires now instead of as soon as the center enters the area. You can turn this feature on/off by manually setting it in Settings.</p>
 <h2 id="switchmakeareasvisible">switchMakeAreasVisible:</h2>
 <p>This feature makes areas visible so that you can visually see them for debugging purposes, you can turn this feature on by calling 
-<code>module.switchMakeAreasVisible()</code>. The visualation is customizable. </p>
+<code>module.switchMakeAreasVisible()</code>. The visualation is customizable by editing the <code>Settings.Part</code> dictionary. </p>
 <h2 id="autodeterminewhicharea">autoDetermineWhichArea:</h2>
-<p>By default when you add the Area constructor arguments, this feature calculates (based on the args) which Area to construct 
+<p>When you add an Area (<code>module.addArea</code>), this feature calculates (based on the args) which Area to construct 
 so it will use AV2 on Areas which are axis aligned and AV7 on those who arent. You can still manually specify which Area you want (see module.addArea)</p>
                 
                   
@@ -435,7 +435,7 @@ so it will use AV2 on Areas which are axis aligned and AV7 on those who arent. Y
 <div class="md-source-date">
   <small>
     
-      Last update: 2020-09-05
+      Last update: 2020-09-13
     
   </small>
 </div>
