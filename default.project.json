@@ -13,9 +13,6 @@
         "$className": "ServerScriptService",
         "OT&AM":{
           "$path": "src/module"
-        },
-        "Test":{
-          "$path": "src/test.server.lua"
         }
       }
   }

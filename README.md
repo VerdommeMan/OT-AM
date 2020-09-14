@@ -6,7 +6,7 @@ This module handles the interaction between my other modules. You can add any ob
 
 ## Download 
 - from the release page
-- link to roblox asset page
+- [link to roblox asset page](https://www.roblox.com/library/5692848707)
 - or you can directly download it from [/src](src/)
 
 ## Documentation
