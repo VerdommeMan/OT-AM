@@ -2,8 +2,6 @@
 
 This module handles the interaction between my other modules. You can add any object that it needs to track and it will give you onEnter/onLeave events and many more features.
 
-\#TODO: will be finished once it is fully released
-
 ## Download 
 - from the release page
 - [link to roblox asset page](https://www.roblox.com/library/5692848707)
