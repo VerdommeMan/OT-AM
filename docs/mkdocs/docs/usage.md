@@ -2,16 +2,16 @@
 
 After aquiring the module ([see README](https://github.com/VerdommeMan/OT-AM))
 
-You can do this anyway you want. But this is how i would do it:
+You can do this anyway you want. But this is how I would do it:
 
 ## SERVER ONLY
-Module in SS and require from scripts in SSS
+Module in ServerStorage and require from scripts in ServerScriptService.
 
 ## CLIENT ONLY
-Module in RS and require from LS in playerscripts
+Module in ReplicatedStorage and require from Localscript in playerscripts
 
 ## CLIENT & SERVER
-Module in RS and require from playerscripts and SSS
+Module in ReplicatedStorage and require from playerscripts and ServerScriptService.
 
 ## How to setup Areas
 

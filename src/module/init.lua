@@ -13,7 +13,7 @@ local module = {}
 
 --settings, can be changed directly instead of using the setters (read/write)
 module.Settings = {}
-module.Settings.Heartbeat = 2 --max 60
+module.Settings.Heartbeat = 5 --max 60
 module.Settings.FolderName = "OT&AM: Areas" -- name used for the folder where the parts will be stored in for making Areas visible
 module.Settings.FrontCenterPosition = false -- so instead of using the center of part to calculate if a player is inside an  area it will use the FrontCenterPosition (only if Size is available)
 module.Settings.Part = {  --contains the props of the part that will generated for that Area when its made visible
