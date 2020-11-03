@@ -455,19 +455,18 @@
                 
                 
                 <h1 id="benchmarks">Benchmarks</h1>
-<p>Here i compare the benchmarks between OT&amp;AM, Zone+ and Region3. And each benchmark will have its rbxl file stored in the folder <a href="https://github.com/VerdommeMan/OT-AM/tree/master/Benchmarks">benchmarks</a>. So that you can easily benchmark it yourself.</p>
+<p>Here i compare the benchmarks between OT&amp;AM, Zone+ and Region3. And each benchmark will have its rbxl file stored in the folder <a href="https://github.com/VerdommeMan/OT-AM/tree/master/benchmarks">benchmarks</a>. So that you can easily benchmark it yourself.</p>
 <div class="admonition note">
 <p class="admonition-title">If you run these benchmarks you will have different results but you should see a similar trend</p>
 </div>
 <details class="note"><summary>I didnt include RAM in these benchmarks</summary><p>There were big jumps in the RAM usages, even when there are no scripts running, any measurement would give a wrong impression.
-If you do want to see the RAM usages, i suggest that you download one of the benchmarks.</p>
+If you do want to see the RAM usages, you can download one of the benchmarks.</p>
 </details>
 <details class="info"><summary>general info about benchmarks</summary><ul>
-<li>all benchmarks are done with localserver + 1 player</li>
-<li>all benchmarks are done on the server</li>
-<li>with coreloop i mean, one loop over areas and see if it found something, coreloop is basically the function/code that gets called each heartbeat</li>
+<li>All benchmarks are done with localserver + 1 player</li>
+<li>All benchmarks are done on the server</li>
+<li>With coreloop i mean, one loop over areas and see if it found something, coreloop is basically the function/code that gets called each heartbeat</li>
 <li>I made a small custom module to track the coreloop.</li>
-<li>Due to the fact that most Areas are not axis aligned means that Region3 will be practically misaligned for each area but since we are just comparing performance it doesnt matter.</li>
 <li>To run the benchmarks yourself, just download the rbxl file, open it with studio and enable a setup from SSS and run it, and then wait for the comment in the output, the benchmarks have been setup to make it very easy to run them yourself, btw dont run two setups at the same time.</li>
 </ul>
 </details>
@@ -536,19 +535,19 @@ If you do want to see the RAM usages, i suggest that you download one of the ben
 </details>
 <div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">OT&amp;AM</label><div class="tabbed-content">
 <ul>
-<li>how long one coreloop took: 0.00011771380019491 s </li>
+<li>How long one coreloop took: 0.00011771380019491 s </li>
 <li>60 FPS </li>
 </ul>
 </div>
 <input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Zone+</label><div class="tabbed-content">
 <ul>
-<li>how long one coreloop took: 0.042149675987021 s (358x times OT&amp;AM)</li>
-<li>note: this average has been upscaled from 10 zones to 100, since more than 10 zones with this many parts gave <code>Script timeout: exhausted allowed execution time</code> error.</li>
+<li>How long one coreloop took: 0.042149675987021 s (358x times OT&amp;AM)</li>
+<li>Note: this average has been upscaled from 10 zones to 100, since more than 10 zones with this many parts gave <code>Script timeout: exhausted allowed execution time</code> error.</li>
 </ul>
 </div>
 <input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><label for="__tabbed_3_3">Region3</label><div class="tabbed-content">
 <ul>
-<li>how long one coreloop took: 0.25659490280008 s (2180x times OT&amp;AM) </li>
+<li>How long one coreloop took: 0.25659490280008 s (2180x times OT&amp;AM) </li>
 <li>4 FPS</li>
 </ul>
 </div>
@@ -562,13 +561,13 @@ If you do want to see the RAM usages, i suggest that you download one of the ben
 <li>Filename: "BenchmarkRR3vsAV2vsAV7.rbxl"</li>
 </ul>
 </details>
-<div class="tabbed-set" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">AV2</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">AreaV2</label><div class="tabbed-content">
 <p>AVG: 4.02599980589e-07 s</p>
 </div>
-<input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><label for="__tabbed_4_2">AV7</label><div class="tabbed-content">
+<input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><label for="__tabbed_4_2">AreaV7</label><div class="tabbed-content">
 <p>AVG: 4.2959998245351e-07 s</p>
 </div>
-<input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><label for="__tabbed_4_3">RR3</label><div class="tabbed-content">
+<input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><label for="__tabbed_4_3">Rotated Region 3</label><div class="tabbed-content">
 <p>AVG: 2.875599951949e-06 s</p>
 </div>
 </div>
@@ -580,7 +579,7 @@ If you do want to see the RAM usages, i suggest that you download one of the ben
 <div class="md-source-date">
   <small>
     
-      Last update: 2020-09-13
+      Last update: 2020-11-03
     
   </small>
 </div>
