@@ -4,34 +4,34 @@ A shorter version can also be found in [docs/short/](https://github.com/Verdomme
 
 ## Methods
 
-### module.addArea({==String==} indentifier, {==Variant==} ...) {==:Area==}
-The indentifier is key used to store said Area, the Area can be retrieved using this key. If indentifier already exists it will throw an error. Next you give in the arguments for the constructor of the Area. It uses a feature to auto determine which Area it should use, you can disable this by manually adding a String at the end of the arguments.The String should the be area's name. I.e. `"AreaV2"` or `"AreaV7"`. It returns the created Area.
+### module.addArea({==String==} identifier, {==Variant==} ...) {==:Area==}
+The identifier is key used to store said Area, the Area can be retrieved using this key. If identifier already exists it will throw an error. Next you give in the arguments for the constructor of the Area. It uses a feature to auto determine which Area it should use, you can disable this by manually adding a String at the end of the arguments. The String should be the area's name. I.e. `"AreaV2"` or `"AreaV7"`. It returns the created Area.
 
-### module.removeArea({==String==} indentifier) {==void==}
-Removes the Area associated with said indentifier.
+### module.removeArea({==String==} identifier) {==void==}
+Removes the Area associated with said identifier.
 
-### module.getArea({==String==} indentifier) {==:Area==}
-Returns the Area associated with said indentifier.
+### module.getArea({==String==} identifier) {==:Area==}
+Returns the Area associated with said identifier.
 
-### module.addTrackedObject({==Instance==} object, {==String==} objectkey, {==Vector3==} size) {==void==}
-Object can be any instance that you want to track as long as it has a CFrame/Position property or it is a Model/Tool. Objectkey is they key used to store the TrackedObject, it must be unique or it will throw an error. Objectkey is also the key that will be returned as parameter in the function connected to onLeave/onEnter events.
+### module.addTrackedObject({==Instance==} object, {==String==} objectKey, {==Vector3==} size) {==void==}
+Object can be any instance that you want to track as long as it has a CFrame/Position property or it is a Model/Tool. ObjectKey is the key used to store the TrackedObject, it must be unique or it will throw an error. ObjectKey is also the key that will be returned as parameter in the function connected to onLeave/onEnter events.
 
-Objectkey and size are optional arguments, if objectkey isnt given then it will use object as objectkey. If an object doest not contain a Size then you can manually add a size if you want to have support for FCP.
+ObjectKey and size are optional arguments, if objectKey isn’t given then it will use object as objectKey. If an object doesn’t not contain a Size then you can manually add a size if you want to have support for FCP.
 
-### module.setTrackedObject({==Instance==} object, {==String==} objectkey, {==Vector3==} size) {==void==}
-Same as `module.addTrackedObject` but this function wont throw an error if the objectkey isnt unique. It will just overwrite the previous value.
+### module.setTrackedObject({==Instance==} object, {==String==} objectKey, {==Vector3==} size) {==void==}
+Same as `module.addTrackedObject` but this function won’t throw an error if the objectKey isn’t unique. It will just overwrite the previous value.
 
-### module.removeTrackedObject({==String==} objectkey) {==void==}
-Removes the TrackedObject that is associated with the objectkey.
+### module.removeTrackedObject({==String==} objectKey) {==void==}
+Removes the TrackedObject that is associated with the objectKey.
 
-### module.getAreas({==String==} objectkey) {==:Table<Area>==}
-Returns a table of areas which the object tied to the key is inside of, in other words onEnter fired but onLeave event didnt for that object.
+### module.getAreas({==String==} objectKey) {==:Table<Area>==}
+Returns a table of areas which the object tied to the key is inside of, in other words onEnter fired but onLeave event didn’t for that object.
 
 ### module.setAutoAddCharacter({==Boolean==} bool) {==void==}
 This function allows you turn on/off the autoAddCharacter feature. It is on by default.
 
 ### module.switchMakeAreasVisible() {==void==}
-This is a feature, it is a switch which either makes all the areas visible or makes them all invisible. Call it make them visible and call it again to make them invisible again.
+This is a feature, it is a switch which either makes all the areas visible or makes them all invisible. Call it make them visible and call it again to make them invisible again. It’s meant for debug purposes.
 
 ### Area:getObjects() {==:Table<Objects>==}
 Returns a table of objects which are in that Area.

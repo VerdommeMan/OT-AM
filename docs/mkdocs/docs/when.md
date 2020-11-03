@@ -7,4 +7,4 @@
 
 ## Bad use cases:
 - Getting the parts in an Area, there are other modules meant for this
-- Areas that arent stationary
+- Areas that aren’t stationary
