@@ -13,18 +13,18 @@ Removes the Area associated with said identifier.
 ### module.getArea({==String==} identifier) {==:Area==}
 Returns the Area associated with said identifier.
 
-### module.addTrackedObject({==Instance==} object, {==String==} objectKey, {==Vector3==} size) {==void==}
+### module.addTrackedObject({==Instance==} object, {==Variant==} objectKey, {==Vector3==} size) {==void==}
 Object can be any instance that you want to track as long as it has a CFrame/Position property or it is a Model/Tool. ObjectKey is the key used to store the TrackedObject, it must be unique or it will throw an error. ObjectKey is also the key that will be returned as parameter in the function connected to onLeave/onEnter events.
 
 ObjectKey and size are optional arguments, if objectKey isn’t given then it will use object as objectKey. If an object doesn’t not contain a Size then you can manually add a size if you want to have support for FCP.
 
-### module.setTrackedObject({==Instance==} object, {==String==} objectKey, {==Vector3==} size) {==void==}
+### module.setTrackedObject({==Instance==} object, {==Variant==} objectKey, {==Vector3==} size) {==void==}
 Same as `module.addTrackedObject` but this function won’t throw an error if the objectKey isn’t unique. It will just overwrite the previous value.
 
-### module.removeTrackedObject({==String==} objectKey) {==void==}
+### module.removeTrackedObject({==Variant==} objectKey) {==void==}
 Removes the TrackedObject that is associated with the objectKey.
 
-### module.getAreas({==String==} objectKey) {==:Table<Area>==}
+### module.getAreas({==Variant==} objectKey) {==:Table<Area>==}
 Returns a table of areas which the object tied to the key is inside of, in other words onEnter fired but onLeave event didn’t for that object.
 
 ### module.setAutoAddCharacter({==Boolean==} bool) {==void==}
